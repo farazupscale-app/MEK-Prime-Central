@@ -1856,7 +1856,7 @@
             style="background-image:url('https://images.unsplash.com/photo-1524230572899-a752b3835840?auto=format&fit=crop&w=2400&q=90');"
             aria-label="Premium commercial architecture"></div>
 
-         <div class="hero-slide constructor-slide" style="background-image:url('./images/banner3.avif');"
+         <div class="hero-slide constructor-slide" style="background-image:url('');"
             aria-label="MEK Constructor"></div>
 
 
@@ -2432,7 +2432,7 @@
    <script>
       /* GOOGLE APPS SCRIPT WEB APP URL
          Replace this with your deployed Apps Script URL. */
-      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+      const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
 
       /* loader */
       window.addEventListener("load", () => {
@@ -2614,47 +2614,166 @@
          }
       });
 
-      /* leads */
+      /* =========================================================
+         GOOGLE SHEETS LEAD SUBMISSION
+         ---------------------------------------------------------
+         Website → Google Apps Script Web App → Google Sheet
+
+         IMPORTANT:
+         Paste your deployed Google Apps Script Web App URL into
+         GOOGLE_SCRIPT_URL below.
+
+         No Vercel /api/lead.js file is required.
+         ========================================================= */
+
       async function submitLead(form) {
-         const button = form.querySelector(".submit"), old = button.textContent;
-         button.textContent = "Sending..."; button.disabled = true;
+
+         const button = form.querySelector(".submit");
+         const oldText = button ? button.textContent : "Submit";
+
+         if (button) {
+            button.textContent = "Sending...";
+            button.disabled = true;
+         }
+
          try {
-            if (GOOGLE_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) {
-               alert("Add your Google Apps Script Web App URL in GOOGLE_SCRIPT_URL first.");
+
+            /* Make sure the Google Apps Script URL was added */
+            if (
+               !GOOGLE_SCRIPT_URL ||
+               GOOGLE_SCRIPT_URL.includes("https://script.google.com/macros/library/d/1REomDLgjEuIuPFLgn_4jfQkfuZ4da4hrrhxYfdMQMPCg5Xc1qIGgjiBo/1")
+            ) {
+               alert("Please add your Google Apps Script Web App URL first.");
                return false;
             }
-            await fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", body: new FormData(form) });
+
+            /*
+               FormData automatically sends the fields whose HTML
+               inputs have name attributes.
+
+               Main/popup form:
+               fullName
+               phone
+               email
+               requirement
+               message
+
+               Callback form:
+               fullName
+               phone
+               email
+            */
+            const formData = new FormData(form);
+
+            /*
+               Direct submission to Google Apps Script.
+
+               mode: "no-cors" is required for this simple
+               Google Apps Script Web App setup. The browser cannot
+               read Google's response, but a successful fetch means
+               the request was sent.
+            */
+            await fetch(GOOGLE_SCRIPT_URL, {
+               method: "POST",
+               mode: "no-cors",
+               body: formData
+            });
+
             return true;
-         } catch (err) {
-            console.error(err); alert("Submission failed. Please try again.");
+
+         } catch (error) {
+
+            console.error("Google Sheets submission error:", error);
+
+            alert("Submission failed. Please try again.");
+
             return false;
-         } finally { button.textContent = old; button.disabled = false }
-      }
-      document.getElementById("leadForm").onsubmit = async e => {
-         e.preventDefault();
-         if (await submitLead(e.target)) {
-            e.target.reset(); document.getElementById("formWrap").style.display = "none"; document.getElementById("success").classList.add("show");
+
+         } finally {
+
+            if (button) {
+               button.textContent = oldText;
+               button.disabled = false;
+            }
+
          }
-      };
-      document.getElementById("callbackForm").onsubmit = async e => {
+      }
+
+
+      /* =========================================================
+         MAIN ENQUIRY FORM
+         ========================================================= */
+
+      document.getElementById("leadForm").onsubmit = async e => {
+
          e.preventDefault();
-         if (await submitLead(e.target)) { e.target.reset(); modal.classList.remove("open"); alert("Callback request submitted successfully.") }
+
+         if (await submitLead(e.target)) {
+
+            e.target.reset();
+
+            document.getElementById("formWrap").style.display = "none";
+
+            document.getElementById("success").classList.add("show");
+
+         }
+
       };
 
-      document.getElementById("popupLeadForm").onsubmit = async e => {
+
+      /* =========================================================
+         CALLBACK FORM
+         ========================================================= */
+
+      document.getElementById("callbackForm").onsubmit = async e => {
+
          e.preventDefault();
+
          if (await submitLead(e.target)) {
+
             e.target.reset();
-            e.target.style.display = "none";
-            document.querySelector(".enquiry-popup > p").style.display = "none";
-            document.getElementById("popupSuccess").classList.add("show");
-            setTimeout(() => {
-               closeEnquiryModal();
-               e.target.style.display = "";
-               document.querySelector(".enquiry-popup > p").style.display = "";
-               document.getElementById("popupSuccess").classList.remove("show");
-            }, 1800);
+
+            modal.classList.remove("open");
+
+            alert("Callback request submitted successfully.");
+
          }
+
+      };
+
+
+      /* =========================================================
+         POPUP ENQUIRY FORM
+         ========================================================= */
+
+      document.getElementById("popupLeadForm").onsubmit = async e => {
+
+         e.preventDefault();
+
+         if (await submitLead(e.target)) {
+
+            e.target.reset();
+
+            e.target.style.display = "none";
+
+            document.querySelector(".enquiry-popup > p").style.display = "none";
+
+            document.getElementById("popupSuccess").classList.add("show");
+
+            setTimeout(() => {
+
+               closeEnquiryModal();
+
+               e.target.style.display = "";
+
+               document.querySelector(".enquiry-popup > p").style.display = "";
+
+               document.getElementById("popupSuccess").classList.remove("show");
+
+            }, 1800);
+
+         }
+
       };
    </script>
 </body>
