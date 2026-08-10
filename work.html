@@ -1,0 +1,2662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>MEK Prime Central — The New Business Address</title>
+   <meta name="description"
+      content="MEK Prime Central — premium retail, office and commercial spaces at Grand Meridian City.">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap"
+      rel="stylesheet">
+      <link rel="icon" href="./fav.png">
+
+   <style>
+      :root {
+         --bg: #f3ebdd;
+         --paper: #fbf7ef;
+         --ink: #211d17;
+         --muted: #756d61;
+         --line: #d8ccb9;
+         --gold: #a77a3b;
+         --gold2: #c6a264;
+         --dark: #29231b;
+         --soft: #e8ddcb;
+         --ease: cubic-bezier(.16, 1, .3, 1);
+         --shadow: 0 28px 70px rgba(35, 30, 20, .13)
+      }
+
+      * {
+         box-sizing: border-box;
+         margin: 0;
+         padding: 0
+      }
+
+      html {
+         scroll-behavior: smooth
+      }
+
+      body {
+         font-family: "DM Sans", sans-serif;
+         background: #f3ebdd;
+         color: var(--ink);
+         overflow-x: hidden
+      }
+
+      body.lock {
+         overflow: hidden
+      }
+
+      img {
+         display: block;
+         width: 100%;
+         height: 100%;
+         object-fit: cover
+      }
+
+      a {
+         text-decoration: none;
+         color: inherit
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+         font: inherit
+      }
+
+      .container {
+         width: min(1220px, 90%);
+         margin: auto
+      }
+
+      section {
+         padding: 115px 0
+      }
+
+      .eyebrow {
+         font-size: 9px;
+         letter-spacing: 4px;
+         text-transform: uppercase;
+         color: var(--gold);
+         font-weight: 600
+      }
+
+      .title {
+         font: 500 clamp(46px, 6vw, 78px)/.98 "Playfair Display", serif;
+         letter-spacing: -2px
+      }
+
+      .title em {
+         font-style: italic;
+         color: var(--gold)
+      }
+
+      .text {
+         font-size: 13px;
+         line-height: 1.95;
+         color: var(--muted)
+      }
+
+      .reveal {
+         opacity: 0;
+         transform: translateY(55px);
+         transition: 1s var(--ease)
+      }
+
+      .reveal.active {
+         opacity: 1;
+         transform: none
+      }
+
+      .reveal.delay1 {
+         transition-delay: .1s
+      }
+
+      .reveal.delay2 {
+         transition-delay: .2s
+      }
+
+      .reveal.delay3 {
+         transition-delay: .3s
+      }
+
+      /* loader */
+      .loader-screen {
+         position: fixed;
+         inset: 0;
+         background: #f3ebdd;
+         z-index: 99999;
+         display: grid;
+         place-items: center;
+         transition: 1s var(--ease)
+      }
+
+      .loader-screen.hide {
+         opacity: 0;
+         visibility: hidden
+      }
+
+      .loader-inner {
+         text-align: center
+      }
+
+      .loader-mark {
+         font: 600 64px "Playfair Display";
+         letter-spacing: 8px
+      }
+
+      .loader-name {
+         font-size: 8px;
+         letter-spacing: 5px;
+         text-transform: uppercase;
+         color: var(--gold)
+      }
+
+      .loader-bar {
+         height: 1px;
+         width: 230px;
+         background: #ddd5c6;
+         margin: 25px auto;
+         overflow: hidden
+      }
+
+      .loader-bar span {
+         display: block;
+         height: 100%;
+         width: 35%;
+         background: var(--gold);
+         animation: load 1.4s infinite
+      }
+
+      @keyframes load {
+         from {
+            transform: translateX(-150%)
+         }
+
+         to {
+            transform: translateX(500%)
+         }
+      }
+
+      /* nav */
+      header {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         z-index: 5000;
+         padding: 25px 0;
+         color: white;
+         transition: .5s var(--ease)
+      }
+
+      header.scrolled {
+         padding: 12px 0;
+         background: rgba(251, 247, 239, .94);
+         color: var(--ink);
+         backdrop-filter: blur(18px);
+         box-shadow: 0 8px 30px #3e30150e
+      }
+
+      .nav {
+         display: flex;
+         align-items: center;
+         justify-content: space-between
+      }
+
+      .logo {
+         font: 600 27px "Playfair Display";
+         letter-spacing: 3px
+      }
+
+      .logo span {
+         display: block;
+         font: 600 7px "DM Sans";
+         letter-spacing: 3px;
+         color: var(--gold)
+      }
+
+      .nav-list {
+         display: flex;
+         gap: 28px;
+         list-style: none
+      }
+
+      .nav-list a {
+         font-size: 9px;
+         letter-spacing: 1.4px;
+         text-transform: uppercase;
+         position: relative
+      }
+
+      .nav-list a:after {
+         content: "";
+         position: absolute;
+         left: 0;
+         bottom: -7px;
+         width: 0;
+         height: 1px;
+         background: var(--gold);
+         transition: .35s
+      }
+
+      .nav-list a:hover:after {
+         width: 100%
+      }
+
+      .nav-cta {
+         border: 1px solid currentColor;
+         padding: 12px 19px;
+         font-size: 9px;
+         letter-spacing: 1.5px;
+         text-transform: uppercase
+      }
+
+      .menu {
+         display: none;
+         border: 0;
+         background: none;
+         color: currentColor;
+         font-size: 24px
+      }
+
+      /* hero */
+      .hero {
+         height: 100svh;
+         min-height: 720px;
+         padding: 0;
+         position: relative;
+         color: white;
+         display: flex;
+         align-items: center;
+         overflow: hidden
+      }
+
+      /* HERO SLIDER */
+      .hero-slider {
+         position: absolute;
+         inset: 0;
+         overflow: hidden;
+         z-index: 0;
+         background: #171611;
+      }
+
+      .hero-slide {
+         position: absolute;
+         inset: 0;
+         opacity: 0;
+         visibility: hidden;
+         transform: scale(1.03);
+         transition:
+            opacity 1s var(--ease),
+            transform 7s ease-out,
+            visibility 1s;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-size: cover;
+      }
+
+      .hero-slide.active {
+         opacity: 1;
+         visibility: visible;
+         transform: scale(1.07);
+      }
+
+      .hero-slide::after {
+         content: "";
+         position: absolute;
+         inset: 0;
+         background:
+            linear-gradient(90deg, rgba(37, 29, 18, .82), rgba(37, 29, 18, .46) 47%, rgba(37, 29, 18, .10));
+         pointer-events: none;
+      }
+
+      /* The MEK Constructor artwork already contains its own dark/gold text panel. */
+      .hero-slide.constructor-slide::after {
+         background:
+            linear-gradient(90deg, rgba(0, 0, 0, .10), rgba(0, 0, 0, .04) 60%, rgba(0, 0, 0, .18));
+      }
+
+      .hero-content,
+      .hero-side,
+      .hero-scroll {
+         transition: opacity .65s ease, visibility .65s ease;
+      }
+
+      .hero.constructor-active .hero-content,
+      .hero.constructor-active .hero-side {
+         opacity: 0;
+         visibility: hidden;
+         pointer-events: none;
+      }
+
+      .hero-slider-dots {
+         position: absolute;
+         left: 50%;
+         bottom: 62px;
+         transform: translateX(-50%);
+         z-index: 5;
+         display: flex;
+         gap: 10px;
+      }
+
+      .hero-slider-dot {
+         width: 5px;
+         height: 2px;
+         border: 0;
+         padding: 0;
+         background: rgba(255, 255, 255, .45);
+         cursor: pointer;
+         transition: .35s ease;
+      }
+
+      .hero-slider-dot.active {
+         width: 48px;
+         background: var(--gold2);
+      }
+
+      .hero-slider-arrow {
+         position: absolute;
+         top: 50%;
+         z-index: 5;
+         width: 48px;
+         height: 48px;
+         border: 1px solid rgba(255, 255, 255, .45);
+         background: rgba(0, 0, 0, .16);
+         color: white;
+         display: grid;
+         place-items: center;
+         cursor: pointer;
+         transform: translateY(-50%);
+         transition: .35s ease;
+         backdrop-filter: blur(8px);
+      }
+
+      .hero-slider-arrow:hover {
+         background: rgba(167, 122, 59, .75);
+         border-color: var(--gold2);
+      }
+
+      .hero-slider-arrow.prev {
+         left: 28px;
+      }
+
+      .hero-slider-arrow.next {
+         right: 28px;
+      }
+
+      @media(max-width:650px) {
+         .hero-slider-arrow {
+            width: 40px;
+            height: 40px;
+         }
+
+         .hero-slider-arrow.prev {
+            left: 12px;
+         }
+
+         .hero-slider-arrow.next {
+            right: 12px;
+         }
+
+         .hero-slider-dots {
+            bottom: 54px;
+         }
+
+         /* Keep the wide artwork fully visible on phones. */
+         .hero-slide.constructor-slide {
+            background-size: cover;
+            background-position: center center;
+         }
+      }
+
+      .hero-content {
+         position: relative;
+         z-index: 2;
+         max-width: 800px;
+         padding-top: 50px
+      }
+
+      .hero-kicker {
+         display: flex;
+         gap: 12px;
+         align-items: center;
+         font-size: 9px;
+         letter-spacing: 4px;
+         text-transform: uppercase;
+         color: #e5cc98;
+         opacity: 0;
+         animation: up .9s .2s forwards
+      }
+
+      .hero-kicker:before {
+         content: "";
+         width: 45px;
+         height: 1px;
+         background: var(--gold2)
+      }
+
+      .hero h1 {
+         font: 500 clamp(65px, 9vw, 124px)/.87 "Playfair Display";
+         letter-spacing: -4px;
+         margin: 25px 0;
+         opacity: 0;
+         animation: up 1s .35s forwards
+      }
+
+      .hero h1 em {
+         color: #d9b873
+      }
+
+      .hero .text {
+         max-width: 590px;
+         color: #eee9df;
+         opacity: 0;
+         animation: up 1s .55s forwards
+      }
+
+      .hero-actions {
+         display: flex;
+         gap: 12px;
+         margin-top: 30px;
+         opacity: 0;
+         animation: up 1s .75s forwards
+      }
+
+      .btn {
+         min-height: 50px;
+         padding: 0 24px;
+         border: 1px solid var(--gold2);
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 9px;
+         letter-spacing: 1.7px;
+         text-transform: uppercase;
+         cursor: pointer;
+         transition: .4s var(--ease)
+      }
+
+      .btn.gold {
+         background: var(--gold);
+         color: white
+      }
+
+      .btn.ghost {
+         color: white;
+         background: #ffffff0d;
+         border-color: #ffffff88
+      }
+
+      .btn:hover {
+         transform: translateY(-4px);
+         box-shadow: 0 15px 40px #0003
+      }
+
+      .hero-side {
+         position: absolute;
+         right: 5%;
+         bottom: 60px;
+         z-index: 2;
+         text-align: right;
+         color: #e9e1d1
+      }
+
+      .hero-side strong {
+         font: 500 38px "Playfair Display";
+         display: block
+      }
+
+      .hero-side span {
+         font-size: 8px;
+         letter-spacing: 2px;
+         text-transform: uppercase
+      }
+
+      .hero-scroll {
+         position: absolute;
+         bottom: 25px;
+         left: 50%;
+         transform: translateX(-50%);
+         font-size: 8px;
+         letter-spacing: 3px;
+         text-transform: uppercase;
+         display: flex;
+         gap: 12px;
+         align-items: center;
+         color: #ddd4c5
+      }
+
+      .hero-scroll i {
+         width: 45px;
+         height: 1px;
+         background: var(--gold2);
+         display: block
+      }
+
+      @keyframes up {
+         to {
+            opacity: 1;
+            transform: none
+         }
+
+         from {
+            opacity: 0;
+            transform: translateY(35px)
+         }
+      }
+
+      /* intro */
+      .intro {
+         background: #fbf7ef
+      }
+
+      .intro-grid {
+         display: grid;
+         grid-template-columns: .85fr 1.15fr;
+         gap: 100px;
+         align-items: end
+      }
+
+      .intro-number {
+         font: 500 150px/.75 "Playfair Display";
+         color: #e5ded0
+      }
+
+      .intro-copy {
+         max-width: 730px
+      }
+
+      .intro-copy .title {
+         margin: 17px 0 25px
+      }
+
+      .signature {
+         margin-top: 35px;
+         font: italic 22px "Playfair Display";
+         color: var(--gold)
+      }
+
+      /* project ribbon */
+      .ribbon {
+         background: var(--dark);
+         color: white;
+         padding: 25px 0;
+         overflow: hidden
+      }
+
+      .ribbon-track {
+         display: flex;
+         width: max-content;
+         animation: marquee 28s linear infinite
+      }
+
+      .ribbon-track span {
+         white-space: nowrap;
+         padding: 0 35px;
+         font: 500 17px "Playfair Display";
+         letter-spacing: 2px
+      }
+
+      .r-dot {
+         color: var(--gold2)
+      }
+
+      @keyframes marquee {
+         to {
+            transform: translateX(-50%)
+         }
+      }
+
+      /* vision */
+      .vision {
+         background: #f3ebdd
+      }
+
+      .vision-head {
+         display: grid;
+         grid-template-columns: .75fr 1.25fr;
+         gap: 70px;
+         align-items: end
+      }
+
+      .vision-head .text {
+         max-width: 550px
+      }
+
+      .vision-grid {
+         display: grid;
+         grid-template-columns: 1.15fr .85fr;
+         gap: 18px;
+         margin-top: 60px
+      }
+
+      .vision-img {
+         height: 620px;
+         overflow: hidden;
+         position: relative
+      }
+
+      .vision-img img {
+         transition: 1s var(--ease)
+      }
+
+      .vision-img:hover img {
+         transform: scale(1.06)
+      }
+
+      .vision-img:after {
+         content: "01";
+         position: absolute;
+         left: 25px;
+         top: 22px;
+         color: white;
+         font: 500 18px "Playfair Display"
+      }
+
+      .vision-side {
+         display: grid;
+         grid-template-rows: 1fr 1fr;
+         gap: 18px
+      }
+
+      .vision-small {
+         position: relative;
+         overflow: hidden;
+         min-height: 300px
+      }
+
+      .vision-small img {
+         transition: 1s var(--ease)
+      }
+
+      .vision-small:hover img {
+         transform: scale(1.07)
+      }
+
+      .vision-label {
+         position: absolute;
+         left: 25px;
+         bottom: 22px;
+         color: white;
+         z-index: 2
+      }
+
+      .vision-label h3 {
+         font: 500 30px "Playfair Display"
+      }
+
+      .vision-label span {
+         font-size: 8px;
+         letter-spacing: 2px;
+         text-transform: uppercase
+      }
+
+      .shade {
+         position: absolute;
+         inset: 0;
+         background: linear-gradient(transparent 30%, rgba(0, 0, 0, .65))
+      }
+
+      /* spaces */
+      .spaces {
+         background: #e9ddcb
+      }
+
+      .space-head {
+         text-align: center;
+         max-width: 760px;
+         margin: auto
+      }
+
+      .space-head .title {
+         margin: 16px 0 20px
+      }
+
+      .space-grid {
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+         gap: 1px;
+         background: #d6cebf;
+         margin-top: 60px
+      }
+
+      .space {
+         background: #f9f5ec;
+         padding: 37px;
+         min-height: 320px;
+         position: relative;
+         transition: .5s var(--ease);
+         overflow: hidden
+      }
+
+      .space:after {
+         content: "";
+         position: absolute;
+         width: 180px;
+         height: 180px;
+         border: 1px solid #b48a4533;
+         border-radius: 50%;
+         right: -80px;
+         bottom: -80px;
+         transition: .7s
+      }
+
+      .space:hover {
+         background: #fbf7ef;
+         transform: translateY(-8px);
+         box-shadow: var(--shadow);
+         z-index: 2
+      }
+
+      .space:hover:after {
+         transform: scale(1.8)
+      }
+
+      .space-no {
+         font: 500 14px "Playfair Display";
+         color: var(--gold)
+      }
+
+      .space h3 {
+         font: 500 34px "Playfair Display";
+         margin: 28px 0 12px
+      }
+
+      .space p {
+         font-size: 11px;
+         line-height: 1.8;
+         color: var(--muted)
+      }
+
+      .space-link {
+         position: absolute;
+         bottom: 30px;
+         font-size: 8px;
+         letter-spacing: 2px;
+         text-transform: uppercase;
+         color: var(--gold)
+      }
+
+      /* stats */
+      .stats {
+         background: var(--dark);
+         color: white
+      }
+
+      .stats-grid {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr)
+      }
+
+      .stat {
+         text-align: center;
+         padding: 12px;
+         border-right: 1px solid #ffffff1c
+      }
+
+      .stat:last-child {
+         border: 0
+      }
+
+      .stat b {
+         font: 500 55px "Playfair Display";
+         color: var(--gold2)
+      }
+
+      .stat span {
+         display: block;
+         font-size: 8px;
+         letter-spacing: 2px;
+         text-transform: uppercase;
+         color: #aaa294;
+         margin-top: 4px
+      }
+
+      /* location */
+      .location {
+         background: #fbf7ef
+      }
+
+      .location-grid {
+         display: grid;
+         grid-template-columns: .95fr 1.05fr;
+         gap: 85px;
+         align-items: center
+      }
+
+      .map-photo {
+         height: 600px;
+         position: relative;
+         overflow: hidden
+      }
+
+      .map-photo img {
+         transition: 1.2s var(--ease)
+      }
+
+      .map-photo:hover img {
+         transform: scale(1.05)
+      }
+
+      .map-card {
+         position: absolute;
+         left: 24px;
+         bottom: 24px;
+         background: #fbf7efe8;
+         padding: 24px;
+         max-width: 340px;
+         box-shadow: 0 12px 40px #0002
+      }
+
+      .map-card h3 {
+         font: 500 30px "Playfair Display";
+         color: #272116
+      }
+
+      .map-card p {
+         font-size: 10px;
+         color: var(--muted);
+         line-height: 1.7;
+         margin-top: 5px
+      }
+
+      .location-copy .title {
+         margin: 16px 0 24px
+      }
+
+      .route-list {
+         margin-top: 35px;
+         border-top: 1px solid var(--line)
+      }
+
+      .route {
+         display: flex;
+         justify-content: space-between;
+         padding: 17px 0;
+         border-bottom: 1px solid var(--line);
+         font-size: 11px;
+         color: #656057
+      }
+
+      .route b {
+         color: var(--gold);
+         font-weight: 600
+      }
+
+      /* amenities */
+      .amenities {
+         background: #f3ebdd
+      }
+
+      .amenity-grid {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         gap: 10px;
+         margin-top: 55px
+      }
+
+      .amenity {
+         height: 330px;
+         position: relative;
+         overflow: hidden
+      }
+
+      .amenity img {
+         transition: 1s var(--ease)
+      }
+
+      .amenity:hover img {
+         transform: scale(1.09)
+      }
+
+      .amenity:after {
+         content: "";
+         position: absolute;
+         inset: 0;
+         background: linear-gradient(transparent 25%, rgba(18, 16, 11, .76))
+      }
+
+      .amenity-content {
+         position: absolute;
+         left: 22px;
+         bottom: 22px;
+         color: white;
+         z-index: 2
+      }
+
+      .amenity-content h3 {
+         font: 500 28px "Playfair Display"
+      }
+
+      .amenity-content p {
+         font-size: 8px;
+         letter-spacing: 1.5px;
+         text-transform: uppercase;
+         color: #ded6c7;
+         margin-top: 4px
+      }
+
+      /* gallery */
+      .gallery {
+         background: #fbf7ef;
+         padding-bottom: 0
+      }
+
+      .gallery-top {
+         display: flex;
+         justify-content: space-between;
+         align-items: end;
+         gap: 30px
+      }
+
+      .gallery-top .text {
+         max-width: 400px
+      }
+
+      .gallery-grid {
+         display: grid;
+         grid-template-columns: 1.35fr .65fr .65fr;
+         grid-template-rows: 300px 300px;
+         gap: 8px;
+         margin-top: 55px
+      }
+
+      .g1 {
+         grid-row: span 2
+      }
+
+      .g4 {
+         grid-column: span 2
+      }
+
+      .gallery-item {
+         overflow: hidden
+      }
+
+      .gallery-item img {
+         transition: 1s var(--ease)
+      }
+
+      .gallery-item:hover img {
+         transform: scale(1.08)
+      }
+
+      /* journey */
+      .journey {
+         background: #e7dac6
+      }
+
+      .journey-head {
+         text-align: center
+      }
+
+      .journey-grid {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         margin-top: 55px;
+         border-top: 1px solid #d0c6b5
+      }
+
+      .journey-step {
+         padding: 30px 25px;
+         border-right: 1px solid #d0c6b5;
+         min-height: 220px
+      }
+
+      .journey-step:last-child {
+         border: 0
+      }
+
+      .journey-step b {
+         font: 500 45px "Playfair Display";
+         color: #cbb995
+      }
+
+      .journey-step h3 {
+         font: 500 27px "Playfair Display";
+         margin: 10px 0
+      }
+
+      .journey-step p {
+         font-size: 10px;
+         line-height: 1.8;
+         color: var(--muted)
+      }
+
+      /* faq */
+      .faq {
+         background: #fbf7ef
+      }
+
+      .faq-grid {
+         display: grid;
+         grid-template-columns: .7fr 1.3fr;
+         gap: 90px
+      }
+
+      .faq-list {
+         border-top: 1px solid var(--line)
+      }
+
+      .faq-row {
+         border-bottom: 1px solid var(--line)
+      }
+
+      .faq-q {
+         border: 0;
+         background: none;
+         width: 100%;
+         padding: 22px 0;
+         text-align: left;
+         display: flex;
+         justify-content: space-between;
+         cursor: pointer;
+         font-size: 12px;
+         color: var(--ink)
+      }
+
+      .plus {
+         font-size: 22px;
+         color: var(--gold);
+         transition: .4s
+      }
+
+      .faq-row.open .plus {
+         transform: rotate(45deg)
+      }
+
+      .answer {
+         max-height: 0;
+         overflow: hidden;
+         transition: .6s var(--ease)
+      }
+
+      .answer p {
+         font-size: 11px;
+         line-height: 1.8;
+         color: var(--muted);
+         padding: 0 0 20px
+      }
+
+      /* enquiry */
+      .enquiry {
+         background: linear-gradient(135deg, #e8dcc9, #fbf7ef)
+      }
+
+      .enquiry-grid {
+         display: grid;
+         grid-template-columns: .75fr 1.25fr;
+         gap: 90px;
+         align-items: start
+      }
+
+      .enquiry-copy .title {
+         margin: 16px 0 22px
+      }
+
+      .contact-points {
+         margin-top: 35px
+      }
+
+      .contact-point {
+         padding: 15px 0;
+         border-bottom: 1px solid var(--line);
+         font-size: 10px;
+         color: #686258
+      }
+
+      .form-box {
+         background: #fbf7ef;
+         padding: 42px;
+         box-shadow: var(--shadow);
+         border: 1px solid #e3dbcc
+      }
+
+      .form-box h3 {
+         font: 500 40px "Playfair Display";
+         margin-bottom: 23px;
+         color: #30271b
+      }
+
+      .form-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 15px
+      }
+
+      .field.full {
+         grid-column: 1/-1
+      }
+
+      .field label {
+         display: block;
+         font-size: 8px;
+         letter-spacing: 1.5px;
+         text-transform: uppercase;
+         color: #8b8376;
+         margin-bottom: 7px
+      }
+
+      .field input,
+      .field select,
+      .field textarea {
+         width: 100%;
+         border: 1px solid #ddd6ca;
+         background: #fcf8f0;
+         padding: 14px;
+         outline: none;
+         color: #28241e
+      }
+
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+         border-color: var(--gold)
+      }
+
+      .field textarea {
+         height: 115px;
+         resize: none
+      }
+
+      .submit {
+         border: 0;
+         background: var(--gold);
+         color: white;
+         width: 100%;
+         padding: 16px;
+         margin-top: 16px;
+         font-size: 9px;
+         letter-spacing: 2px;
+         text-transform: uppercase;
+         cursor: pointer;
+         transition: .4s
+      }
+
+      .submit:hover {
+         background: #8c6834;
+         transform: translateY(-3px)
+      }
+
+      .success {
+         display: none;
+         text-align: center;
+         padding: 60px 0
+      }
+
+      .success.show {
+         display: block
+      }
+
+      .success-icon {
+         width: 64px;
+         height: 64px;
+         border: 1px solid var(--gold);
+         border-radius: 50%;
+         display: grid;
+         place-items: center;
+         margin: auto;
+         color: var(--gold);
+         font-size: 24px
+      }
+
+      .success h3 {
+         font: 500 40px "Playfair Display";
+         margin-top: 15px
+      }
+
+      .success p {
+         font-size: 11px;
+         color: var(--muted);
+         margin-top: 5px
+      }
+
+      /* footer */
+      footer {
+         background: #171611;
+         color: white;
+         padding: 55px 0 22px
+      }
+
+      .footer-top {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding-bottom: 30px;
+         border-bottom: 1px solid #ffffff1c
+      }
+
+      .footer-logo {
+         font: 500 32px "Playfair Display";
+         letter-spacing: 2px
+      }
+
+      .footer-links {
+         display: flex;
+         gap: 25px;
+         font-size: 8px;
+         letter-spacing: 1.5px;
+         text-transform: uppercase;
+         color: #bfb7a8
+      }
+
+      .footer-bottom {
+         display: flex;
+         justify-content: space-between;
+         padding-top: 20px;
+         color: #827b6f;
+         font-size: 8px
+      }
+
+      /* floating */
+      .whatsapp {
+         position: fixed;
+         right: 22px;
+         bottom: 22px;
+         z-index: 4000;
+         width: 54px;
+         height: 54px;
+         border-radius: 50%;
+         background: #25d366;
+         color: white;
+         display: grid;
+         place-items: center;
+         font-size: 21px;
+         box-shadow: 0 15px 40px #0003;
+         animation: pulse 2.4s infinite
+      }
+
+      @keyframes pulse {
+         50% {
+            transform: translateY(-6px)
+         }
+      }
+
+      .top {
+         position: fixed;
+         right: 24px;
+         bottom: 90px;
+         width: 42px;
+         height: 42px;
+         border: 1px solid var(--gold);
+         background: #fbf7ef;
+         color: var(--gold);
+         z-index: 4000;
+         opacity: 0;
+         visibility: hidden;
+         transition: .3s;
+         cursor: pointer
+      }
+
+      .top.show {
+         opacity: 1;
+         visibility: visible
+      }
+
+      /* modal */
+      .modal {
+         position: fixed;
+         inset: 0;
+         background: #211a0ecc;
+         backdrop-filter: blur(10px);
+         z-index: 9000;
+         display: none;
+         place-items: center;
+         padding: 20px
+      }
+
+      .modal.open {
+         display: grid
+      }
+
+      .modal-box {
+         width: min(520px, 100%);
+         background: #fffdf9;
+         padding: 40px;
+         position: relative;
+         box-shadow: var(--shadow);
+         animation: modal .45s var(--ease)
+      }
+
+      @keyframes modal {
+         from {
+            opacity: 0;
+            transform: translateY(30px) scale(.97)
+         }
+      }
+
+      .close {
+         position: absolute;
+         right: 18px;
+         top: 12px;
+         background: none;
+         border: 0;
+         font-size: 25px;
+         cursor: pointer;
+         color: #70685d
+      }
+
+      .modal-box h3 {
+         font: 500 40px "Playfair Display";
+         color: #30271b
+      }
+
+      .modal-box>p {
+         font-size: 10px;
+         color: var(--muted);
+         margin: 5px 0 22px
+      }
+
+      /* floating actions */
+      .floating-actions {
+         position: fixed;
+         right: 24px;
+         bottom: 24px;
+         z-index: 4000;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 8px
+      }
+
+      .floating-actions .top {
+         position: static;
+         width: 44px;
+         height: 44px;
+         opacity: 0;
+         visibility: hidden;
+         transform: translateY(8px)
+      }
+
+      .floating-actions .top.show {
+         opacity: 1;
+         visibility: visible;
+         transform: none
+      }
+
+      .whatsapp {
+         position: static;
+         width: 54px;
+         height: 54px;
+         border-radius: 50%;
+         background: #25D366;
+         color: #fff;
+         display: grid;
+         place-items: center;
+         box-shadow: 0 15px 40px rgba(0, 0, 0, .22);
+         transition: .35s var(--ease)
+      }
+
+      .whatsapp:hover {
+         transform: translateY(-4px) scale(1.04)
+      }
+
+      .whatsapp svg {
+         width: 28px;
+         height: 28px;
+         fill: currentColor
+      }
+
+      .enquiry-modal {
+         z-index: 9500
+      }
+
+      .enquiry-popup {
+         max-height: calc(100vh - 40px);
+         overflow: auto;
+         padding: 38px
+      }
+
+      .enquiry-popup h3 {
+         font: 500 43px "Playfair Display";
+         color: #30271b;
+         margin: 8px 0 6px
+      }
+
+      .enquiry-popup h3 em {
+         color: var(--gold);
+         font-style: italic
+      }
+
+      .enquiry-popup>p {
+         font-size: 10px;
+         color: var(--muted);
+         margin-bottom: 22px
+      }
+
+      .popup-success {
+         display: none;
+         text-align: center;
+         padding: 25px 0 10px
+      }
+
+      .popup-success.show {
+         display: block
+      }
+
+      .popup-success h4 {
+         font: 500 31px "Playfair Display";
+         color: #30271b;
+         margin-top: 14px
+      }
+
+      .popup-success p {
+         font-size: 10px;
+         color: var(--muted);
+         margin-top: 5px
+      }
+
+      @media(max-width:650px) {
+         .floating-actions {
+            right: 16px;
+            bottom: 16px
+         }
+
+         .enquiry-popup {
+            padding: 28px 22px
+         }
+
+         .enquiry-popup h3 {
+            font-size: 36px
+         }
+      }
+
+
+      /* LEGAL / POLICY MODALS */
+      .legal-modal .modal-box {
+         width: min(900px, 100%);
+         max-height: calc(100vh - 40px);
+         overflow: auto;
+         padding: 42px;
+      }
+
+      .legal-modal .legal-content h3 {
+         font: 500 42px "Playfair Display";
+         color: #30271b;
+         margin-bottom: 8px;
+      }
+
+      .legal-modal .legal-content .legal-updated {
+         font-size: 9px;
+         letter-spacing: 1px;
+         text-transform: uppercase;
+         color: var(--gold);
+         margin-bottom: 28px;
+      }
+
+      .legal-modal .legal-content h4 {
+         font: 500 22px "Playfair Display";
+         color: #30271b;
+         margin: 25px 0 8px;
+      }
+
+      .legal-modal .legal-content p,
+      .legal-modal .legal-content li {
+         font-size: 11px;
+         line-height: 1.85;
+         color: var(--muted);
+      }
+
+      .legal-modal .legal-content ul {
+         padding-left: 18px;
+         margin-top: 8px;
+      }
+
+      .legal-modal .legal-content li {
+         margin-bottom: 5px;
+      }
+
+      .legal-modal .legal-note {
+         background: #f3ebdd;
+         border-left: 2px solid var(--gold);
+         padding: 14px 16px;
+         margin: 20px 0;
+      }
+
+      @media(max-width:650px) {
+         .legal-modal .modal-box {
+            padding: 28px 22px;
+         }
+
+         .legal-modal .legal-content h3 {
+            font-size: 34px;
+         }
+      }
+
+      /* responsive */
+      @media(max-width:980px) {
+         .nav-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            display: block;
+            background: #fffdf9;
+            color: var(--ink);
+            max-height: 0;
+            overflow: hidden;
+            transition: .5s;
+            box-shadow: 0 20px 35px #0001
+         }
+
+         .nav-list.open {
+            max-height: 500px
+         }
+
+         .nav-list li a {
+            display: block;
+            padding: 17px 5%;
+            border-bottom: 1px solid var(--line)
+         }
+
+         .menu {
+            display: block
+         }
+
+         .nav-cta {
+            display: none
+         }
+
+         .intro-grid,
+         .vision-head,
+         .location-grid,
+         .faq-grid,
+         .enquiry-grid {
+            grid-template-columns: 1fr;
+            gap: 45px
+         }
+
+         .space-grid {
+            grid-template-columns: 1fr 1fr
+         }
+
+         .amenity-grid {
+            grid-template-columns: 1fr 1fr
+         }
+
+         .journey-grid {
+            grid-template-columns: 1fr 1fr
+         }
+
+         .stats-grid {
+            grid-template-columns: 1fr 1fr
+         }
+
+         .stat {
+            border-bottom: 1px solid #ffffff1c
+         }
+      }
+
+      @media(max-width:650px) {
+         section {
+            padding: 80px 0
+         }
+
+         .hero h1 {
+            font-size: 65px;
+            letter-spacing: -2px
+         }
+
+         .hero-side {
+            display: none
+         }
+
+         .hero-actions {
+            flex-direction: column;
+            width: 245px
+         }
+
+         .intro-number {
+            font-size: 100px
+         }
+
+         .vision-grid {
+            grid-template-columns: 1fr
+         }
+
+         .vision-img {
+            height: 450px
+         }
+
+         .vision-small {
+            height: 260px
+         }
+
+         .space-grid,
+         .amenity-grid,
+         .journey-grid {
+            grid-template-columns: 1fr
+         }
+
+         .gallery-top {
+            display: block
+         }
+
+         .gallery-top .text {
+            margin-top: 20px
+         }
+
+         .gallery-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 190px 190px 190px
+         }
+
+         .g1 {
+            grid-row: span 2
+         }
+
+         .g4 {
+            grid-column: span 2
+         }
+
+         .form-grid {
+            grid-template-columns: 1fr
+         }
+
+         .field.full {
+            grid-column: auto
+         }
+
+         .form-box {
+            padding: 25px
+         }
+
+         .footer-top,
+         .footer-bottom {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 18px
+         }
+
+         .footer-links {
+            flex-wrap: wrap
+         }
+      }
+
+      /* FINAL CONTACT + FLOATING BUTTON POLISH */
+      .contact-icon {
+         width: 48px;
+         height: 48px;
+         min-width: 48px;
+         border-radius: 50%;
+         display: grid;
+         place-items: center;
+         background: #eadcc7;
+         color: #a77a3b;
+      }
+
+      .contact-icon svg {
+         width: 24px;
+         height: 24px;
+         fill: none;
+         stroke: currentColor;
+         stroke-width: 1.8;
+         stroke-linecap: round;
+         stroke-linejoin: round;
+      }
+
+      .contact-icon.whatsapp-contact svg {
+         fill: currentColor;
+         stroke: none;
+         width: 25px;
+         height: 25px
+      }
+
+      .contact-row {
+         display: flex;
+         align-items: center;
+         gap: 18px
+      }
+
+      .contact-row>div {
+         flex: 1
+      }
+
+      .floating-actions {
+         position: fixed;
+         right: 28px;
+         bottom: 28px;
+         z-index: 9999;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 14px;
+      }
+
+      .floating-actions .top {
+         position: static;
+         order: 1;
+         width: 58px;
+         height: 58px;
+         border-radius: 50%;
+         display: grid;
+         place-items: center;
+      }
+
+      .floating-actions .whatsapp {
+         position: static;
+         order: 2;
+         width: 58px;
+         height: 58px;
+         border-radius: 50%;
+         display: grid;
+         place-items: center;
+         background: #25D366;
+         color: #fff;
+         box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
+      }
+
+      .floating-actions .whatsapp svg {
+         width: 32px;
+         height: 32px;
+         fill: currentColor;
+      }
+
+      .floating-actions .whatsapp::before {
+         content: "Chat on WhatsApp";
+         position: absolute;
+         right: 72px;
+         top: 50%;
+         transform: translateY(-50%) translateX(8px);
+         background: #29231b;
+         color: #fff;
+         padding: 10px 15px;
+         border-radius: 18px;
+         font: 600 11px Arial, sans-serif;
+         white-space: nowrap;
+         opacity: 0;
+         pointer-events: none;
+         transition: .25s ease;
+         box-shadow: 0 8px 22px rgba(0, 0, 0, .18);
+      }
+
+      .floating-actions .whatsapp:hover::before {
+         opacity: 1;
+         transform: translateY(-50%) translateX(0);
+      }
+
+      @media(max-width:650px) {
+         .floating-actions {
+            right: 16px;
+            bottom: 18px;
+            gap: 10px
+         }
+
+         .floating-actions .top,
+         .floating-actions .whatsapp {
+            width: 52px;
+            height: 52px
+         }
+
+         .floating-actions .whatsapp svg {
+            width: 29px;
+            height: 29px
+         }
+      }
+
+      /* FINAL OVERRIDE: floating buttons alignment */
+      .floating-actions {
+         position: fixed !important;
+         right: 28px !important;
+         bottom: 28px !important;
+         z-index: 99999 !important;
+         display: flex !important;
+         flex-direction: column !important;
+         align-items: center !important;
+         gap: 14px !important
+      }
+
+      .floating-actions .top {
+         position: static !important;
+         order: 1 !important
+      }
+
+      .floating-actions .whatsapp {
+         position: static !important;
+         order: 2 !important
+      }
+   </style>
+</head>
+
+<body class="lock">
+
+   <div class="loader-screen" id="loader">
+      <div class="loader-inner">
+         <div class="loader-mark">MEK</div>
+         <div class="loader-name">PRIME CENTRAL</div>
+         <div class="loader-bar"><span></span></div>
+      </div>
+   </div>
+
+   <header id="header">
+      <div class="container nav">
+         <a class="logo" href="#home">MEK <span>PRIME CENTRAL </span></a>
+         <button class="menu" id="menu">☰</button>
+         <ul class="nav-list" id="navList">
+            <li><a href="#vision">The Vision</a></li>
+            <li><a href="#spaces">Spaces</a></li>
+            <li><a href="#location">Location</a></li>
+            <li><a href="#amenities">Experience</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#enquiry">Enquire</a></li>
+         </ul>
+         <a href="#enquiry" class="nav-cta">Book a Visit</a>
+      </div>
+   </header>
+
+   <section class="hero" id="home">
+      <div class="hero-slider" aria-label="MEK project highlights">
+         <div class="hero-slide active"
+            style="background-image:url('https://images.unsplash.com/photo-1524230572899-a752b3835840?auto=format&fit=crop&w=2400&q=90');"
+            aria-label="Premium commercial architecture"></div>
+
+         <div class="hero-slide constructor-slide" style="background-image:url('./images/banner3.avif');"
+            aria-label="MEK Constructor"></div>
+
+
+         <button class="hero-slider-arrow prev" id="heroPrev" aria-label="Previous slide">‹</button>
+         <button class="hero-slider-arrow next" id="heroNext" aria-label="Next slide">›</button>
+
+         <div class="hero-slider-dots" aria-label="Hero slides">
+            <button class="hero-slider-dot active" data-slide="0" aria-label="Go to slide 1"></button>
+            <button class="hero-slider-dot" data-slide="1" aria-label="Go to slide 2"></button>
+         </div>
+      </div>
+
+      <div class="container hero-content">
+         <div class="hero-kicker">Grand Meridian City · Mumbra</div>
+         <h1>Build your<br><em>next landmark.</em></h1>
+         <p class="text">MEK PRIME CENTRAL is a premium commercial destination created for brands, entrepreneurs and
+            investors who want more than an address — they want presence.</p>
+         <div class="hero-actions">
+            <a class="btn gold" href="#enquiry">Explore Opportunities</a>
+            <button class="btn ghost" id="callback">Request a Callback</button>
+         </div>
+      </div>
+      <div class="hero-side"><strong>G+4</strong><span>Premium Commercial Destination</span></div>
+      <div class="hero-scroll">Scroll to discover <i></i></div>
+   </section>
+
+   <section class="intro">
+      <div class="container intro-grid">
+         <div class="reveal">
+            <div class="intro-number">01</div>
+            <div class="eyebrow">A new chapter</div>
+         </div>
+         <div class="intro-copy reveal delay1">
+            <h2 class="title">An address with <em>ambition.</em></h2>
+            <p class="text">The best business addresses do more than locate you. They introduce you. MEK PRIME CENTRAL
+               is envisioned as a contemporary commercial destination where premium frontage, practical spaces and a
+               connected setting come together.</p>
+            <p class="text" style="margin-top:16px">Whether you are opening your first flagship, expanding your office
+               or looking for a strategic commercial investment, the project is designed to support the next stage of
+               your journey.</p>
+            <div class="signature">Designed for the way India does business today.</div>
+         </div>
+      </div>
+   </section>
+
+   <div class="ribbon">
+      <div class="ribbon-track">
+         <span>MEK PRIME CENTRAL <i class="r-dot">✦</i></span><span>YOUR BUSINESS. YOUR ADDRESS. <i
+               class="r-dot">✦</i></span><span>PREMIUM COMMERCIAL SPACES <i class="r-dot">✦</i></span><span>GRAND
+            MERIDIAN CITY <i class="r-dot">✦</i></span>
+         <span>MEK PRIME CENTRAL <i class="r-dot">✦</i></span><span>YOUR BUSINESS. YOUR ADDRESS. <i
+               class="r-dot">✦</i></span><span>PREMIUM COMMERCIAL SPACES <i class="r-dot">✦</i></span><span>GRAND
+            MERIDIAN CITY <i class="r-dot">✦</i></span>
+      </div>
+   </div>
+
+   <section class="vision" id="vision">
+      <div class="container">
+         <div class="vision-head">
+            <div class="reveal">
+               <div class="eyebrow">The Vision</div>
+               <h2 class="title" style="margin-top:15px">Designed to be <em>noticed.</em></h2>
+            </div>
+            <p class="text reveal delay1">A premium commercial environment should feel considered from the first step.
+               The architecture, arrival experience, visibility and flexibility of the spaces are brought together to
+               create a destination that feels relevant today and valuable tomorrow.</p>
+         </div>
+         <div class="vision-grid">
+            <div class="vision-img reveal"><img
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1500&q=90"
+                  alt="Premium interior"></div>
+            <div class="vision-side">
+               <div class="vision-small reveal delay1"><img
+                     src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1000&q=90"
+                     alt="Modern Indian architecture">
+                  <div class="shade"></div>
+                  <div class="vision-label">
+                     <h3>Contemporary</h3><span>Architecture with presence</span>
+                  </div>
+               </div>
+               <div class="vision-small reveal delay2"><img
+                     src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=90"
+                     alt="Modern office">
+                  <div class="shade"></div>
+                  <div class="vision-label">
+                     <h3>Flexible</h3><span>Spaces for evolving businesses</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <section class="spaces" id="spaces">
+      <div class="container">
+         <div class="space-head">
+            <div class="eyebrow reveal">Find your fit</div>
+            <h2 class="title reveal">A space for every <em>ambition.</em></h2>
+            <p class="text reveal">Choose a commercial format that fits your business today and gives it room to grow.
+            </p>
+         </div>
+         <div class="space-grid">
+            <article class="space reveal">
+               <div class="space-no">01</div>
+               <h3>Retail</h3>
+               <p>Visible commercial spaces for brands that depend on presentation, accessibility and everyday customer
+                  interaction.</p>
+               <div class="space-link">Discover retail →</div>
+            </article>
+            <article class="space reveal delay1">
+               <div class="space-no">02</div>
+               <h3>Office</h3>
+               <p>Professional environments for consultants, service businesses, teams and entrepreneurs building their
+                  next chapter.</p>
+               <div class="space-link">Discover offices →</div>
+            </article>
+            <article class="space reveal delay2">
+               <div class="space-no">03</div>
+               <h3>Investment</h3>
+               <p>Explore commercial opportunities in an emerging urban catchment with strong surrounding residential
+                  activity.</p>
+               <div class="space-link">Explore opportunities →</div>
+            </article>
+         </div>
+      </div>
+   </section>
+
+   <section class="stats">
+      <div class="container stats-grid">
+         <div class="stat reveal"><b data-count="365">0+</b><span>Sq. ft. starting size</span></div>
+         <div class="stat reveal delay1"><b data-count="6000">0+</b><span>Sq. ft. larger formats</span></div>
+         <div class="stat reveal delay2"><b data-count="6">0</b><span>Elevators planned</span></div>
+         <div class="stat reveal delay3"><b>G+4</b><span>Commercial structure</span></div>
+      </div>
+   </section>
+
+   <section class="location" id="location">
+      <div class="container location-grid">
+         <div class="map-photo reveal">
+            <img src="https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=1400&q=90"
+               alt="Mumbai skyline India">
+            <div class="map-card">
+               <h3>Connected to the region.</h3>
+               <p>Positioned in Mumbra, within the wider Thane growth corridor and connected toward Mumbai and Navi
+                  Mumbai.</p>
+            </div>
+         </div>
+         <div class="location-copy reveal delay1">
+            <div class="eyebrow">The Location</div>
+            <h2 class="title">Be where <em>movement</em> happens.</h2>
+            <p class="text">A commercial address becomes stronger when the surrounding city works in its favour. MEK
+               PRIME CENTRAL is planned within the Grand Meridian City ecosystem, serving an established and expanding
+               catchment.</p>
+            <div class="route-list">
+               <div class="route"><span>Mumbra</span><b>Local catchment</b></div>
+               <div class="route"><span>Thane</span><b>Regional connection</b></div>
+               <div class="route"><span>Navi Mumbai</span><b>Growth corridor</b></div>
+               <div class="route"><span>Mumbai</span><b>Major business hub</b></div>
+               <div class="route"><span>Grand Meridian City</span><b>Project ecosystem</b></div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <section class="amenities" id="amenities">
+      <div class="container">
+         <div class="eyebrow reveal">The Experience</div>
+         <h2 class="title reveal" style="margin-top:15px">Business, with a <em>better backdrop.</em></h2>
+         <div class="amenity-grid">
+            <div class="amenity reveal"><img
+                  src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=90"
+                  alt="Luxury lobby">
+               <div class="shade"></div>
+               <div class="amenity-content">
+                  <h3>Grand Arrival</h3>
+                  <p>Premium first impressions</p>
+               </div>
+            </div>
+            <div class="amenity reveal delay1"><img
+                  src="https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=900&q=90"
+                  alt="Security">
+               <div class="shade"></div>
+               <div class="amenity-content">
+                  <h3>Security</h3>
+                  <p>Designed for peace of mind</p>
+               </div>
+            </div>
+            <div class="amenity reveal delay2"><img
+                  src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=90"
+                  alt="Office">
+               <div class="shade"></div>
+               <div class="amenity-content">
+                  <h3>Workspaces</h3>
+                  <p>Modern business environment</p>
+               </div>
+            </div>
+            <div class="amenity reveal delay3"><img
+                  src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=90"
+                  alt="Dining">
+               <div class="shade"></div>
+               <div class="amenity-content">
+                  <h3>Convenience</h3>
+                  <p>Everyday business needs</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <section class="gallery" id="gallery">
+      <div class="container">
+         <div class="gallery-top">
+            <div>
+               <div class="eyebrow reveal">The Look</div>
+               <h2 class="title reveal" style="margin-top:15px">A visual language of <em>luxury.</em></h2>
+            </div>
+            <p class="text reveal">Warm materials, contemporary forms and an India-inspired sense of hospitality.</p>
+         </div>
+      </div>
+      <div class="container gallery-grid">
+         <div class="gallery-item g1 reveal"><img
+               src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1400&q=90"
+               alt="Indian luxury architecture"></div>
+         <div class="gallery-item reveal delay1"><img
+               src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=90"
+               alt="Luxury interior"></div>
+         <div class="gallery-item reveal delay2"><img
+               src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=900&q=90"
+               alt="India landmark"></div>
+         <div class="gallery-item g4 reveal delay1"><img
+               src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1300&q=90"
+               alt="Indian architecture"></div>
+      </div>
+   </section>
+
+   <section class="journey">
+      <div class="container">
+         <div class="journey-head">
+            <div class="eyebrow reveal">Your next move</div>
+            <h2 class="title reveal" style="margin-top:15px">From idea to <em>address.</em></h2>
+         </div>
+         <div class="journey-grid">
+            <div class="journey-step reveal"><b>01</b>
+               <h3>Enquire</h3>
+               <p>Tell us what kind of commercial space you need.</p>
+            </div>
+            <div class="journey-step reveal delay1"><b>02</b>
+               <h3>Explore</h3>
+               <p>Review configurations, availability and project details.</p>
+            </div>
+            <div class="journey-step reveal delay2"><b>03</b>
+               <h3>Visit</h3>
+               <p>Experience the project and discuss your requirements.</p>
+            </div>
+            <div class="journey-step reveal delay3"><b>04</b>
+               <h3>Choose</h3>
+               <p>Move forward with the space that fits your vision.</p>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <section class="faq">
+      <div class="container faq-grid">
+         <div class="reveal">
+            <div class="eyebrow">Good to know</div>
+            <h2 class="title" style="margin-top:15px">Questions, <em>answered.</em></h2>
+            <p class="text" style="margin-top:22px">Have a specific requirement? Use the enquiry form and our team can
+               provide the latest project information.</p>
+         </div>
+         <div class="faq-list">
+            <div class="faq-row reveal"><button class="faq-q">What spaces are available? <span
+                     class="plus">+</span></button>
+               <div class="answer">
+                  <p>MEK PRIME CENTRAL is positioned for retail, office and commercial investment opportunities.
+                     Availability can change, so contact the team for current inventory.</p>
+               </div>
+            </div>
+            <div class="faq-row reveal"><button class="faq-q">What size options are available? <span
+                     class="plus">+</span></button>
+               <div class="answer">
+                  <p>Project information indicates commercial spaces beginning around 365 sq. ft. and larger formats up
+                     to approximately 6000 sq. ft.</p>
+               </div>
+            </div>
+            <div class="faq-row reveal"><button class="faq-q">Can I schedule a site visit? <span
+                     class="plus">+</span></button>
+               <div class="answer">
+                  <p>Yes. Submit the enquiry form with “Site Visit” selected and the sales team can coordinate the next
+                     step.</p>
+               </div>
+            </div>
+            <div class="faq-row reveal"><button class="faq-q">Can I get current pricing? <span
+                     class="plus">+</span></button>
+               <div class="answer">
+                  <p>Yes. Pricing and inventory are subject to change. Submit your details to request the latest
+                     information.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <section class="enquiry" id="enquiry">
+      <div class="container enquiry-grid">
+         <div class="enquiry-copy reveal">
+            <div class="eyebrow">Private Enquiry</div>
+            <h2 class="title">Your next business address could be <em>here.</em></h2>
+            <p class="text">Request the latest brochure, availability, pricing or a site visit. Share your details and
+               the MEK PRIME CENTRAL team can contact you.</p>
+            <div class="contact-points">
+               <div class="contact-point">📍 Grand Meridian City, Mumbra, Thane, Maharashtra</div>
+               <div class="contact-point">📞 +91 98000 98000</div>
+            </div>
+         </div>
+         <div class="form-box reveal delay1">
+            <div id="formWrap">
+               <h3>Register Your Interest</h3>
+               <form id="leadForm">
+                  <div class="form-grid">
+                     <div class="field"><label>Full Name *</label><input name="fullName" required
+                           placeholder="Full name"></div>
+                     <div class="field"><label>Mobile Number *</label><input name="phone" required placeholder="+91">
+                     </div>
+                     <div class="field"><label>Email</label><input name="email" type="email"
+                           placeholder="Email address"></div>
+                     <div class="field"><label>I'm interested in</label><select name="requirement">
+                           <option>Retail Space</option>
+                           <option>Office Space</option>
+                           <option>Investment</option>
+                           <option>Site Visit</option>
+                           <option>Brochure</option>
+                        </select></div>
+                     <div class="field full"><label>Message</label><textarea name="message"
+                           placeholder="Tell us what you are looking for"></textarea></div>
+                  </div>
+                  <button class="submit" type="submit">Send Enquiry</button>
+               </form>
+            </div>
+            <div class="success" id="success">
+               <div class="success-icon">✓</div>
+               <h3>Thank You</h3>
+               <p>Your enquiry has been submitted. Our team will contact you.</p>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <footer>
+      <div class="container">
+         <div class="footer-top">
+            <div class="footer-logo">MEK PRIME CENTRAL</div>
+            <div class="footer-links">
+               <a href="#vision">Vision</a>
+               <a href="#spaces">Spaces</a>
+               <a href="#location">Location</a>
+               <a href="#gallery">Gallery</a>
+               <a href="#enquiry">Enquire</a>
+               <a href="#" data-legal="privacy">Privacy Policy</a>
+               <a href="#" data-legal="terms">Terms &amp; Conditions</a>
+               <a href="#" data-legal="disclaimer">Disclaimer</a>
+            </div>
+         </div>
+         <div class="footer-bottom">
+            <span>© 2026 MEK PRIME CENTRAL</span>
+            <span>Commercial MahaRERA: PC1330002600951</span>
+         </div>
+      </div>
+   </footer>
+
+   <div class="floating-actions">
+      <button class="top" id="top" aria-label="Back to top">↑</button>
+      <a class="whatsapp" href="https://wa.me/919800098000" target="_blank" rel="noopener"
+         aria-label="Chat on WhatsApp">
+         <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path
+               d="M19.11 17.23c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.58-1.5-1.85-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.52-.45-.45-.61-.46h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27s.98 2.64 1.11 2.82c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.57.66.21 1.26.18 1.73.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32zM16.01 3.2A12.78 12.78 0 0 0 5.08 22.65L3.2 28.8l6.32-1.81A12.8 12.8 0 1 0 16.01 3.2zm0 23.35c-2.06 0-4.08-.55-5.84-1.59l-.42-.25-3.75 1.07 1.1-3.65-.27-.44A10.61 10.61 0 1 1 16.01 26.55z" />
+         </svg>
+      </a>
+   </div>
+
+
+   <!-- PRIVACY POLICY -->
+   <div class="modal legal-modal" id="privacyModal" aria-hidden="true">
+      <div class="modal-box">
+         <button class="close" data-close-legal="privacy" aria-label="Close">×</button>
+         <div class="legal-content">
+            <div class="eyebrow">Legal</div>
+            <h3>Privacy <em>Policy.</em></h3>
+            <div class="legal-updated">Last updated: 10 August 2026</div>
+
+            <p>This Privacy Policy explains how MEK PRIME CENTRAL may collect, use and protect information submitted
+               through this website.</p>
+
+            <h4>1. Information We Collect</h4>
+            <p>When you submit an enquiry, callback request or site-visit request, we may collect information such as
+               your name, mobile number, email address, requirement and message.</p>
+
+            <h4>2. How We Use Your Information</h4>
+            <p>Your information may be used to respond to your enquiry, provide project information, coordinate site
+               visits, share requested brochures or pricing information, and communicate about your request.</p>
+
+            <h4>3. Data Sharing</h4>
+            <p>We do not intend to sell your personal information. Information may be shared with relevant project,
+               sales, technology or service providers only where reasonably necessary to process your enquiry or operate
+               the website.</p>
+
+            <h4>4. Data Security</h4>
+            <p>Reasonable technical and organisational measures may be used to protect submitted information. However,
+               no internet transmission or storage system can be guaranteed to be completely secure.</p>
+
+            <h4>5. Third-Party Services</h4>
+            <p>This website may use third-party services such as Google services, WhatsApp and externally hosted images
+               or fonts. Their own privacy policies and terms may also apply.</p>
+
+            <h4>6. Your Choices</h4>
+            <p>You may request clarification about information submitted through this website or ask that future
+               marketing communication be stopped, subject to applicable legal and operational requirements.</p>
+
+            <div class="legal-note">
+               <p>By submitting an enquiry, you acknowledge that the information you provide may be used to respond to
+                  your request.</p>
+            </div>
+
+            <h4>7. Contact</h4>
+            <p>For privacy-related questions, please contact the MEK PRIME CENTRAL sales/project team using the contact
+               details provided on this website.</p>
+         </div>
+      </div>
+   </div>
+
+   <!-- TERMS & CONDITIONS -->
+   <div class="modal legal-modal" id="termsModal" aria-hidden="true">
+      <div class="modal-box">
+         <button class="close" data-close-legal="terms" aria-label="Close">×</button>
+         <div class="legal-content">
+            <div class="eyebrow">Legal</div>
+            <h3>Terms &amp; <em>Conditions.</em></h3>
+            <div class="legal-updated">Last updated: 10 August 2026</div>
+
+            <p>By accessing or using this website, you agree to these Terms &amp; Conditions. If you do not agree,
+               please do not use the website.</p>
+
+            <h4>1. Website Information</h4>
+            <p>The website is intended to provide general information about MEK PRIME CENTRAL, including its commercial
+               spaces, location, features and enquiry process.</p>
+
+            <h4>2. Availability &amp; Pricing</h4>
+            <p>Availability, configurations, dimensions, pricing, specifications, timelines, amenities and other project
+               details may change without notice. Please confirm the latest information with the authorised project team
+               before making any decision.</p>
+
+            <h4>3. No Guarantee</h4>
+            <p>Website content is provided for general informational purposes and should not be treated as a guarantee
+               of investment returns, appreciation, rental income, availability or commercial performance.</p>
+
+            <h4>4. Enquiries</h4>
+            <p>Submitting a form does not constitute a booking, allotment, agreement or financial commitment. A separate
+               authorised process and documentation may be required for any transaction.</p>
+
+            <h4>5. Intellectual Property</h4>
+            <p>Unless otherwise stated, the website design, text, graphics, branding and original content are intended
+               for use only in connection with this website and may not be copied or reproduced without appropriate
+               permission.</p>
+
+            <h4>6. External Links &amp; Services</h4>
+            <p>Links or integrations to third-party services may be provided for convenience. MEK PRIME CENTRAL is not
+               responsible for the content, availability or policies of third-party websites or services.</p>
+
+            <h4>7. Changes</h4>
+            <p>These Terms &amp; Conditions may be updated from time to time. Continued use of the website after changes
+               are posted may constitute acceptance of the updated terms.</p>
+
+            <div class="legal-note">
+               <p>For legal, regulatory, pricing or project-specific confirmation, rely on the latest authorised project
+                  documentation and communication.</p>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- DISCLAIMER -->
+   <div class="modal legal-modal" id="disclaimerModal" aria-hidden="true">
+      <div class="modal-box">
+         <button class="close" data-close-legal="disclaimer" aria-label="Close">×</button>
+         <div class="legal-content">
+            <div class="eyebrow">Important Notice</div>
+            <h3>Disclaimer.</h3>
+            <div class="legal-updated">Last updated: 10 August 2026</div>
+
+            <p>The information displayed on this website is provided for general informational and marketing purposes
+               relating to MEK PRIME CENTRAL.</p>
+
+            <h4>1. Illustrations &amp; Images</h4>
+            <p>Images, renders, photographs, graphics and visual references may be illustrative or representative.
+               Actual construction, finishes, landscaping, views, interiors, amenities and surroundings may differ.</p>
+
+            <h4>2. Project Information</h4>
+            <p>Areas, layouts, specifications, amenities, floor plans, pricing, inventory, timelines and other details
+               are subject to change and should be independently verified from authorised project documents.</p>
+
+            <h4>3. Investment Disclaimer</h4>
+            <p>Nothing on this website should be interpreted as financial, investment, legal or tax advice, or as a
+               promise of future returns or appreciation. Prospective purchasers should make their own independent
+               assessment and obtain professional advice where appropriate.</p>
+
+            <h4>4. Regulatory Information</h4>
+            <p>Where regulatory or registration information is displayed, including the stated Commercial MahaRERA
+               number PC1330002600951, users should verify the latest official project records and approvals before
+               relying on such information.</p>
+
+            <h4>5. No Offer or Contract</h4>
+            <p>Website content and enquiry forms do not by themselves create an offer, allotment, contract, agency
+               relationship or obligation to sell or purchase any property.</p>
+
+            <div class="legal-note">
+               <p>For the most accurate and current information, please contact the authorised MEK PRIME CENTRAL project
+                  team and review the applicable official documentation.</p>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="modal enquiry-modal" id="enquiryModal" aria-hidden="true">
+      <div class="modal-box enquiry-popup">
+         <button class="close" id="closeEnquiry" aria-label="Close">×</button>
+         <div class="eyebrow">Private Enquiry</div>
+         <h3>Find your <em>space.</em></h3>
+         <p>Share your requirement and the MEK PRIME CENTRAL team will contact you.</p>
+         <form id="popupLeadForm">
+            <div class="form-grid">
+               <div class="field"><label>Full Name *</label><input name="fullName" required placeholder="Full name">
+               </div>
+               <div class="field"><label>Mobile Number *</label><input name="phone" required placeholder="+91"></div>
+               <div class="field"><label>Email</label><input name="email" type="email" placeholder="Email address">
+               </div>
+               <div class="field"><label>Interested In</label><select name="requirement">
+                     <option>Retail Space</option>
+                     <option>Office Space</option>
+                     <option>Investment</option>
+                     <option>Site Visit</option>
+                     <option>Brochure</option>
+                  </select></div>
+               <div class="field full"><label>Message</label><textarea name="message"
+                     placeholder="Tell us what you are looking for"></textarea></div>
+            </div>
+            <button class="submit" type="submit">Submit Enquiry</button>
+         </form>
+         <div class="popup-success" id="popupSuccess">
+            <div class="success-icon">✓</div>
+            <h4>Enquiry Received</h4>
+            <p>Thank you. Our team will contact you shortly.</p>
+         </div>
+      </div>
+   </div>
+
+   <div class="modal" id="modal">
+      <div class="modal-box">
+         <button class="close" id="close">×</button>
+         <h3>Request a Callback</h3>
+         <p>Leave your details and the team will contact you.</p>
+         <form id="callbackForm">
+            <div class="form-grid">
+               <div class="field"><label>Full Name *</label><input name="fullName" required></div>
+               <div class="field"><label>Mobile Number *</label><input name="phone" required></div>
+               <div class="field full"><label>Email</label><input name="email" type="email"></div>
+            </div>
+            <button class="submit" type="submit">Request Callback</button>
+         </form>
+      </div>
+   </div>
+
+   <script>
+      /* GOOGLE APPS SCRIPT WEB APP URL
+         Replace this with your deployed Apps Script URL. */
+      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+
+      /* loader */
+      window.addEventListener("load", () => {
+         setTimeout(() => { document.getElementById("loader").classList.add("hide"); document.body.classList.remove("lock") }, 1300)
+      });
+
+      /* HERO SLIDER */
+      const hero = document.querySelector(".hero");
+      const heroSlides = [...document.querySelectorAll(".hero-slide")];
+      const heroDots = [...document.querySelectorAll(".hero-slider-dot")];
+      const heroPrev = document.getElementById("heroPrev");
+      const heroNext = document.getElementById("heroNext");
+      let heroIndex = 0;
+      let heroTimer;
+
+      function showHeroSlide(index) {
+         heroIndex = (index + heroSlides.length) % heroSlides.length;
+
+         heroSlides.forEach((slide, i) => {
+            slide.classList.toggle("active", i === heroIndex);
+         });
+
+         heroDots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === heroIndex);
+         });
+
+         hero.classList.toggle("constructor-active", heroIndex === 1);
+      }
+
+      function restartHeroTimer() {
+         clearInterval(heroTimer);
+         heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 7000);
+      }
+
+      heroPrev.addEventListener("click", () => {
+         showHeroSlide(heroIndex - 1);
+         restartHeroTimer();
+      });
+
+      heroNext.addEventListener("click", () => {
+         showHeroSlide(heroIndex + 1);
+         restartHeroTimer();
+      });
+
+      heroDots.forEach(dot => {
+         dot.addEventListener("click", () => {
+            showHeroSlide(Number(dot.dataset.slide));
+            restartHeroTimer();
+         });
+      });
+
+      showHeroSlide(0);
+      restartHeroTimer();
+
+      /* header + top */
+      const header = document.getElementById("header"), topBtn = document.getElementById("top");
+      window.addEventListener("scroll", () => {
+         header.classList.toggle("scrolled", scrollY > 60);
+         topBtn.classList.toggle("show", scrollY > 700);
+      }, { passive: true });
+      topBtn.onclick = () => scrollTo({ top: 0, behavior: "smooth" });
+
+      /* mobile nav */
+      const navList = document.getElementById("navList");
+      document.getElementById("menu").onclick = () => navList.classList.toggle("open");
+      document.querySelectorAll(".nav-list a").forEach(a => a.onclick = () => navList.classList.remove("open"));
+
+      /* reveal */
+      const observer = new IntersectionObserver(entries => {
+         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("active"); observer.unobserve(e.target) } })
+      }, { threshold: .12 });
+      document.querySelectorAll(".reveal").forEach(e => observer.observe(e));
+
+      /* counters */
+      const counterObserver = new IntersectionObserver(entries => {
+         if (!entries[0].isIntersecting) return;
+         document.querySelectorAll("[data-count]").forEach(el => {
+            const target = Number(el.dataset.count), start = performance.now();
+            function tick(now) {
+               const p = Math.min((now - start) / 1500, 1), eased = 1 - Math.pow(1 - p, 3);
+               el.textContent = Math.floor(target * eased).toLocaleString() + "+";
+               if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+         });
+         counterObserver.disconnect();
+      }, { threshold: .5 });
+      counterObserver.observe(document.querySelector(".stats"));
+
+      /* faq */
+      document.querySelectorAll(".faq-q").forEach(q => q.onclick = () => {
+         const row = q.parentElement, answer = row.querySelector(".answer");
+         document.querySelectorAll(".faq-row").forEach(r => {
+            if (r !== row) { r.classList.remove("open"); r.querySelector(".answer").style.maxHeight = null }
+         });
+         row.classList.toggle("open");
+         answer.style.maxHeight = row.classList.contains("open") ? answer.scrollHeight + "px" : null;
+      });
+
+      /* callback modal */
+      const modal = document.getElementById("modal");
+      document.getElementById("callback").onclick = () => openEnquiry();
+      document.getElementById("close").onclick = () => modal.classList.remove("open");
+      modal.onclick = e => { if (e.target === modal) modal.classList.remove("open") };
+
+
+      /* enquiry popup */
+      const enquiryModal = document.getElementById("enquiryModal");
+      const closeEnquiry = document.getElementById("closeEnquiry");
+      function openEnquiry() {
+         enquiryModal.classList.add("open");
+         enquiryModal.setAttribute("aria-hidden", "false");
+         document.body.classList.add("lock");
+      }
+      function closeEnquiryModal() {
+         enquiryModal.classList.remove("open");
+         enquiryModal.setAttribute("aria-hidden", "true");
+         document.body.classList.remove("lock");
+      }
+      closeEnquiry.onclick = closeEnquiryModal;
+      enquiryModal.addEventListener("click", e => { if (e.target === enquiryModal) closeEnquiryModal(); });
+      document.querySelectorAll('a[href="#enquiry"],.nav-cta').forEach(el => {
+         el.addEventListener("click", e => {
+            e.preventDefault();
+            navList.classList.remove("open");
+            openEnquiry();
+         });
+      });
+      document.addEventListener("keydown", e => {
+         if (e.key === "Escape" && enquiryModal.classList.contains("open")) closeEnquiryModal();
+      });
+
+
+      /* legal policy / terms / disclaimer modals */
+      const legalModals = {
+         privacy: document.getElementById("privacyModal"),
+         terms: document.getElementById("termsModal"),
+         disclaimer: document.getElementById("disclaimerModal")
+      };
+
+      function openLegal(type) {
+         const target = legalModals[type];
+         if (!target) return;
+         target.classList.add("open");
+         target.setAttribute("aria-hidden", "false");
+         document.body.classList.add("lock");
+      }
+
+      function closeLegal(type) {
+         const target = legalModals[type];
+         if (!target) return;
+         target.classList.remove("open");
+         target.setAttribute("aria-hidden", "true");
+         document.body.classList.remove("lock");
+      }
+
+      document.querySelectorAll("[data-legal]").forEach(link => {
+         link.addEventListener("click", e => {
+            e.preventDefault();
+            openLegal(link.dataset.legal);
+         });
+      });
+
+      document.querySelectorAll("[data-close-legal]").forEach(button => {
+         button.addEventListener("click", () => closeLegal(button.dataset.closeLegal));
+      });
+
+      Object.entries(legalModals).forEach(([type, modal]) => {
+         modal.addEventListener("click", e => {
+            if (e.target === modal) closeLegal(type);
+         });
+      });
+
+      document.addEventListener("keydown", e => {
+         if (e.key === "Escape") {
+            Object.keys(legalModals).forEach(type => {
+               if (legalModals[type].classList.contains("open")) closeLegal(type);
+            });
+         }
+      });
+
+      /* leads */
+      async function submitLead(form) {
+         const button = form.querySelector(".submit"), old = button.textContent;
+         button.textContent = "Sending..."; button.disabled = true;
+         try {
+            if (GOOGLE_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) {
+               alert("Add your Google Apps Script Web App URL in GOOGLE_SCRIPT_URL first.");
+               return false;
+            }
+            await fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", body: new FormData(form) });
+            return true;
+         } catch (err) {
+            console.error(err); alert("Submission failed. Please try again.");
+            return false;
+         } finally { button.textContent = old; button.disabled = false }
+      }
+      document.getElementById("leadForm").onsubmit = async e => {
+         e.preventDefault();
+         if (await submitLead(e.target)) {
+            e.target.reset(); document.getElementById("formWrap").style.display = "none"; document.getElementById("success").classList.add("show");
+         }
+      };
+      document.getElementById("callbackForm").onsubmit = async e => {
+         e.preventDefault();
+         if (await submitLead(e.target)) { e.target.reset(); modal.classList.remove("open"); alert("Callback request submitted successfully.") }
+      };
+
+      document.getElementById("popupLeadForm").onsubmit = async e => {
+         e.preventDefault();
+         if (await submitLead(e.target)) {
+            e.target.reset();
+            e.target.style.display = "none";
+            document.querySelector(".enquiry-popup > p").style.display = "none";
+            document.getElementById("popupSuccess").classList.add("show");
+            setTimeout(() => {
+               closeEnquiryModal();
+               e.target.style.display = "";
+               document.querySelector(".enquiry-popup > p").style.display = "";
+               document.getElementById("popupSuccess").classList.remove("show");
+            }, 1800);
+         }
+      };
+   </script>
+</body>
+
+</html>
