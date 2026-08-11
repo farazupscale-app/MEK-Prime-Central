@@ -292,13 +292,10 @@
          opacity: 0;
          visibility: hidden;
          transform: scale(1.03);
-         transition:
-            opacity 1s var(--ease),
-            transform 7s ease-out,
-            visibility 1s;
+         transition: opacity 1s var(--ease), transform 7s ease-out, visibility 1s;
          background-position: center;
          background-repeat: no-repeat;
-         background-size: cover;
+         background-size:cover;
       }
 
       .hero-slide.active {
@@ -313,25 +310,6 @@
          inset: 0;
          background:
             linear-gradient(90deg, rgba(37, 29, 18, .82), rgba(37, 29, 18, .46) 47%, rgba(37, 29, 18, .10));
-         pointer-events: none;
-      }
-
-      /* The MEK Constructor artwork already contains its own dark/gold text panel. */
-      .hero-slide.constructor-slide::after {
-         background:
-            linear-gradient(90deg, rgba(0, 0, 0, .10), rgba(0, 0, 0, .04) 60%, rgba(0, 0, 0, .18));
-      }
-
-      .hero-content,
-      .hero-side,
-      .hero-scroll {
-         transition: opacity .65s ease, visibility .65s ease;
-      }
-
-      .hero.constructor-active .hero-content,
-      .hero.constructor-active .hero-side {
-         opacity: 0;
-         visibility: hidden;
          pointer-events: none;
       }
 
@@ -461,11 +439,10 @@
       }
 
       .hero-actions {
-         display: flex;
+         display:flex;
          gap: 12px;
-         margin-top: 30px;
-         opacity: 0;
-         animation: up 1s .75s forwards
+         margin-top: 500px;
+         margin-left: 400px;  
       }
 
       .btn {
@@ -563,9 +540,24 @@
          align-items: end
       }
 
-      .intro-number {
-         font: 500 150px/.75 "Playfair Display";
-         color: #e5ded0
+      .intro-image {
+         height: clamp(360px, 38vw, 540px);
+         overflow: hidden;
+         border-radius: 88px 22px 88px 22px;
+         box-shadow: 0 24px 50px rgba(62, 48, 21, .13)
+      }
+
+      .intro-image img {
+         display: block;
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         object-position: 55% center;
+         transition: transform 1s var(--ease)
+      }
+
+      .intro-image:hover img {
+         transform: scale(1.04)
       }
 
       .intro-copy {
@@ -651,7 +643,7 @@
       }
 
       .vision-img:after {
-         content: "01";
+         content: "";
          position: absolute;
          left: 25px;
          top: 22px;
@@ -1572,6 +1564,11 @@
             gap: 45px
          }
 
+         .intro-image {
+            width: min(100%, 620px);
+            height: clamp(380px, 62vw, 540px)
+         }
+
          .space-grid {
             grid-template-columns: 1fr 1fr
          }
@@ -1612,8 +1609,9 @@
             width: 245px
          }
 
-         .intro-number {
-            font-size: 100px
+         .intro-image {
+            height: min(115vw, 470px);
+            border-radius: 62px 18px 62px 18px
          }
 
          .vision-grid {
@@ -1856,8 +1854,11 @@
             style="background-image:url('https://images.unsplash.com/photo-1524230572899-a752b3835840?auto=format&fit=crop&w=2400&q=90');"
             aria-label="Premium commercial architecture"></div>
 
-         <div class="hero-slide constructor-slide" style="background-image:url('');"
+         <div class="hero-slide constructor-slide" style="background-image:url('./images/MEK.png');"
             aria-label="MEK Constructor"></div>
+
+         <div class="hero-slide" style="background-image:url('./images/mek-prime-central-building.png');"
+            aria-label="MEK Prime Central building"></div>
 
 
          <button class="hero-slider-arrow prev" id="heroPrev" aria-label="Previous slide">‹</button>
@@ -1866,14 +1867,11 @@
          <div class="hero-slider-dots" aria-label="Hero slides">
             <button class="hero-slider-dot active" data-slide="0" aria-label="Go to slide 1"></button>
             <button class="hero-slider-dot" data-slide="1" aria-label="Go to slide 2"></button>
+            <button class="hero-slider-dot" data-slide="2" aria-label="Go to slide 3"></button>
          </div>
       </div>
 
       <div class="container hero-content">
-         <div class="hero-kicker">Grand Meridian City · Mumbra</div>
-         <h1>Build your<br><em>next landmark.</em></h1>
-         <p class="text">MEK PRIME CENTRAL is a premium commercial destination created for brands, entrepreneurs and
-            investors who want more than an address — they want presence.</p>
          <div class="hero-actions">
             <a class="btn gold" href="#enquiry">Explore Opportunities</a>
             <button class="btn ghost" id="callback">Request a Callback</button>
@@ -1886,8 +1884,9 @@
    <section class="intro">
       <div class="container intro-grid">
          <div class="reveal">
-            <div class="intro-number">01</div>
-            <div class="eyebrow">A new chapter</div>
+            <div class="intro-image">
+               <img src="./images/ambition-building.png" alt="MEK Prime Central building exterior">
+            </div>
          </div>
          <div class="intro-copy reveal delay1">
             <h2 class="title">An address with <em>ambition.</em></h2>
@@ -1930,8 +1929,8 @@
                   alt="Premium interior"></div>
             <div class="vision-side">
                <div class="vision-small reveal delay1"><img
-                     src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1000&q=90"
-                     alt="Modern Indian architecture">
+                     src="./images/vision-interior.jpg"
+                     alt="Premium interior lounge">
                   <div class="shade"></div>
                   <div class="vision-label">
                      <h3>Contemporary</h3><span>Architecture with presence</span>
@@ -2169,7 +2168,7 @@
                the MEK PRIME CENTRAL team can contact you.</p>
             <div class="contact-points">
                <div class="contact-point">📍 Grand Meridian City, Mumbra, Thane, Maharashtra</div>
-               <div class="contact-point">📞 +91 98000 98000</div>
+               <div class="contact-point">📞 +91 81084 61027</div>
             </div>
          </div>
          <div class="form-box reveal delay1">
@@ -2229,7 +2228,7 @@
 
    <div class="floating-actions">
       <button class="top" id="top" aria-label="Back to top">↑</button>
-      <a class="whatsapp" href="https://wa.me/919800098000" target="_blank" rel="noopener"
+      <a class="whatsapp" href="https://wa.me/918108461027" target="_blank" rel="noopener"
          aria-label="Chat on WhatsApp">
          <svg viewBox="0 0 32 32" aria-hidden="true">
             <path
@@ -2459,7 +2458,6 @@
             dot.classList.toggle("active", i === heroIndex);
          });
 
-         hero.classList.toggle("constructor-active", heroIndex === 1);
       }
 
       function restartHeroTimer() {
