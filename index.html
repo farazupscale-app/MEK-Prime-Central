@@ -87,6 +87,7 @@
       }
 
       .title {
+      text-align: center;
          font: 500 clamp(46px, 6vw, 78px)/.98 "Playfair Display", serif;
          letter-spacing: -2px
       }
@@ -283,26 +284,52 @@
          inset: 0;
          overflow: hidden;
          z-index: 0;
+         isolation: isolate;
          background: #171611;
       }
 
       .hero-slide {
          position: absolute;
-         inset: 0;
+         inset: -2%;
+         z-index: 0;
          opacity: 0;
          visibility: hidden;
-         transform: scale(1.03);
-         transition: opacity 1s var(--ease), transform 7s ease-out, visibility 1s;
+         pointer-events: none;
+         transform: scale(1.045);
+         transform-origin: center;
          background-position: center;
          background-repeat: no-repeat;
-         background-size:cover;
+         background-size: cover;
+         will-change: opacity, transform;
+         transition:
+            opacity 1.35s cubic-bezier(.22, .61, .36, 1),
+            transform 8s cubic-bezier(.16, 1, .3, 1),
+            visibility 0s linear 1.35s;
       }
 
       .hero-slide.active {
+         z-index: 1;
          opacity: 1;
          visibility: visible;
-         transform: scale(1.07);
-      }
+         transform: scale(1.095);
+         transition-delay: 0s, 0s, 0s;
+      } 
+
+      .hero-slide.active,
+      .hero-slide.is-leaving {
+         pointer-events: auto;
+      } 
+
+      @media (prefers-reduced-motion: reduce) {
+         .hero-slide {
+            transform: none;
+            transition: opacity .25s linear, visibility 0s linear .25s;
+         }
+
+         .hero-slide.active {
+            transform: none;
+         }
+      } 
 
       .hero-slide::after {
          content: "";
@@ -712,7 +739,7 @@
 
       .space-grid {
          display: grid;
-         grid-template-columns: repeat(3, 1fr);
+         grid-template-columns: repeat(2, 1fr);
          gap: 1px;
          background: #d6cebf;
          margin-top: 60px
@@ -730,13 +757,29 @@
       .space:after {
          content: "";
          position: absolute;
-         width: 180px;
-         height: 180px;
-         border: 1px solid #b48a4533;
+         width: clamp(220px, 25vw, 360px);
+         height: clamp(220px, 25vw, 360px);
+         border: 1px solid rgba(23, 22, 17, .38);
          border-radius: 50%;
-         right: -80px;
-         bottom: -80px;
-         transition: .7s
+         left: 100%;
+         top: 100%;
+         opacity: 0;
+         pointer-events: none;
+         transform: translate(-50%, -50%) scale(.55);
+         transition: opacity .35s ease, transform .7s var(--ease)
+      }
+
+      .space:nth-child(2):after {
+         left: 0
+      }
+
+      .space:nth-child(3):after {
+         top: 0
+      }
+
+      .space:nth-child(4):after {
+         left: 0;
+         top: 0
       }
 
       .space:hover {
@@ -746,8 +789,9 @@
          z-index: 2
       }
 
-      .space:hover:after {
-         transform: scale(1.8)
+      .space-grid:has(.space:hover) .space:after {
+         opacity: 1;
+         transform: translate(-50%, -50%) scale(1)
       }
 
       .space-no {
@@ -934,6 +978,131 @@
          margin-top: 4px
       }
 
+      /* project snapshot */
+      .snapshot {
+         background: #fbf7ef;
+         padding: 72px 0 78px;
+      }
+
+      .snapshot-grid {
+         display: grid;
+         grid-template-columns: .86fr 1.54fr;
+         gap: clamp(42px, 6vw, 82px);
+         align-items: start;
+      }
+
+      .snapshot-intro {
+         padding-top: 2px;
+      }
+
+      .snapshot-intro .eyebrow {
+         color: var(--gold2);
+      }
+
+      .snapshot-title {
+         max-width: 420px;
+         margin-top: 18px;
+         text-align: left;
+         font-size: clamp(44px, 4.7vw, 66px);
+         line-height: .98;
+         letter-spacing: -2px;
+      }
+
+      .snapshot-cards {
+         display: grid;
+         grid-template-columns: repeat(3, minmax(0, 1fr));
+         gap: 12px;
+      }
+
+      .snapshot-card {
+         min-height: 102px;
+         padding: 17px 16px;
+         display: flex;
+         align-items: center;
+         gap: 13px;
+         border: 1px solid #ded9d0;
+         border-radius: 9px;
+         background: rgba(255, 255, 255, .62);
+         box-shadow: 0 5px 18px rgba(55, 46, 31, .025);
+      }
+
+      .snapshot-icon {
+         flex: 0 0 40px;
+         width: 40px;
+         height: 40px;
+         display: grid;
+         place-items: center;
+         background: #f8f0e3;
+         color: #063d35;
+         border-radius: 4px;
+      }
+
+      .snapshot-icon svg {
+         width: 21px;
+         height: 21px;
+         fill: none;
+         stroke: currentColor;
+         stroke-width: 1.8;
+         stroke-linecap: round;
+         stroke-linejoin: round;
+      }
+
+      .snapshot-copy {
+         min-width: 0;
+      }
+
+      .snapshot-copy span,
+      .snapshot-copy strong {
+         display: block;
+      }
+
+      .snapshot-copy span {
+         margin-bottom: 8px;
+         color: #65635d;
+         font-size: 9px;
+         line-height: 1;
+         font-weight: 700;
+         letter-spacing: .45px;
+         text-transform: uppercase;
+      }
+
+      .snapshot-copy strong {
+         color: #063d35;
+         font-size: 14px;
+         line-height: 1.28;
+         font-weight: 700;
+         overflow-wrap: anywhere;
+      }
+
+      @media(max-width:1000px) {
+         .snapshot-grid {
+            grid-template-columns: 1fr;
+            gap: 42px;
+         }
+
+         .snapshot-title {
+            max-width: 650px;
+         }
+      }
+
+      @media(max-width:650px) {
+         .snapshot {
+            padding: 64px 0;
+         }
+
+         .snapshot-title {
+            font-size: 48px;
+         }
+
+         .snapshot-cards {
+            grid-template-columns: 1fr;
+         }
+
+         .snapshot-card {
+            min-height: 88px;
+         }
+      }
+
       /* gallery */
       .gallery {
          background: #fbf7ef;
@@ -1019,6 +1188,69 @@
          font-size: 10px;
          line-height: 1.8;
          color: var(--muted)
+      }
+
+      /* rera */
+      .rera {
+         background: #29231b;
+         color: #f8f2e8;
+         padding: 82px 0
+      }
+
+      .rera-card {
+         display: grid;
+         grid-template-columns: auto 1fr auto;
+         align-items: center;
+         gap: clamp(24px, 5vw, 68px);
+         padding: clamp(28px, 5vw, 52px);
+         border: 1px solid rgba(211, 178, 113, .5);
+         background: rgba(255, 255, 255, .025)
+      }
+
+      .rera-mark {
+         width: 76px;
+         height: 76px;
+         border: 1px solid #c6a264;
+         border-radius: 50%;
+         display: grid;
+         place-items: center;
+         color: #d8b875;
+         font: 500 20px "Playfair Display"
+      }
+
+      .rera-copy .eyebrow {
+         color: #d8b875
+      }
+
+      .rera-copy h2 {
+         font: 500 clamp(30px, 3.6vw, 50px)/1 "Playfair Display";
+         margin: 12px 0
+      }
+
+      .rera-copy p {
+         max-width: 620px;
+         color: #c5beb2;
+         font-size: 12px;
+         line-height: 1.8
+      }
+
+      .rera-number {
+         text-align: right
+      }
+
+      .rera-number span {
+         display: block;
+         color: #aaa294;
+         font-size: 8px;
+         letter-spacing: 2px;
+         text-transform: uppercase;
+         margin-bottom: 8px
+      }
+
+      .rera-number strong {
+         color: #e0c385;
+         font: 500 clamp(17px, 2vw, 24px) "Playfair Display";
+         letter-spacing: .5px
       }
 
       /* faq */
@@ -1211,39 +1443,176 @@
 
       /* footer */
       footer {
-         background: #171611;
-         color: white;
-         padding: 55px 0 22px
+         background: #11110e;
+         color: #f7f1e7;
+         overflow: hidden
       }
 
-      .footer-top {
+      .footer-cta {
+         background: #b89152;
+         color: #17140f;
+         padding: 26px 0
+      }
+
+      .footer-cta-inner {
          display: flex;
          justify-content: space-between;
-         align-items: center;
-         padding-bottom: 30px;
-         border-bottom: 1px solid #ffffff1c
+         gap: 32px;
+         align-items: center
       }
 
-      .footer-logo {
-         font: 500 32px "Playfair Display";
-         letter-spacing: 2px
-      }
-
-      .footer-links {
+      .footer-cta-copy {
          display: flex;
-         gap: 25px;
-         font-size: 8px;
-         letter-spacing: 1.5px;
+         align-items: center;
+         gap: 18px
+      }
+
+      .footer-cta-copy i {
+         width: 46px;
+         height: 1px;
+         background: currentColor;
+         display: block
+      }
+
+      .footer-cta-copy p {
+         font: 500 clamp(20px, 2.2vw, 30px)/1.1 "Playfair Display";
+         letter-spacing: -.5px
+      }
+
+      .footer-cta .btn {
+         flex: 0 0 auto;
+         min-height: 46px;
+         border-color: #211b12;
+         color: #211b12;
+         background: transparent
+      }
+
+      .footer-cta .btn:hover {
+         background: #211b12;
+         color: #f8f1e5;
+         box-shadow: none
+      }
+
+      .footer-main {
+         display: grid;
+         grid-template-columns: minmax(250px, 1.35fr) repeat(3, minmax(130px, .65fr));
+         gap: clamp(30px, 5vw, 82px);
+         padding: 76px 0 62px
+      }
+
+      .footer-brand {
+         padding-right: 18px
+      }
+
+      .footer-logo-image {
+         width: min(164px, 55vw);
+         height: auto;
+         object-fit: contain;
+         object-position: left center;
+         filter: drop-shadow(0 10px 25px rgba(0, 0, 0, .22))
+      }
+
+      .footer-brand p {
+         max-width: 310px;
+         margin-top: 22px;
+         font-size: 12px;
+         line-height: 1.85;
+         color: #afa99d
+      }
+
+      .footer-social {
+         display: flex;
+         gap: 9px;
+         margin-top: 25px
+      }
+
+      .footer-social a {
+         width: 34px;
+         height: 34px;
+         border: 1px solid #8e7650;
+         display: grid;
+         place-items: center;
+         color: #d4b87f;
+         font-size: 10px;
+         letter-spacing: .4px;
+         transition: .3s var(--ease)
+      }
+
+      .footer-social a:hover {
+         background: #c09a5a;
+         border-color: #c09a5a;
+         color: #16130f
+      }
+
+      .footer-social svg {
+         width: 17px;
+         height: 17px;
+         fill: none;
+         stroke: currentColor;
+         stroke-width: 1.8;
+         stroke-linecap: round;
+         stroke-linejoin: round
+      }
+
+      .footer-social .whatsapp-icon {
+         fill: currentColor;
+         stroke: none
+      }
+
+      .footer-column h3 {
+         color: #d2b170;
+         font-size: 9px;
+         letter-spacing: 2.2px;
          text-transform: uppercase;
-         color: #bfb7a8
+         margin-bottom: 24px
+      }
+
+      .footer-column ul {
+         list-style: none;
+         display: grid;
+         gap: 13px
+      }
+
+      .footer-column a,
+      .footer-column p {
+         color: #b8b2a8;
+         font-size: 11px;
+         line-height: 1.65;
+         transition: color .25s ease
+      }
+
+      .footer-column a:hover {
+         color: #d8b875
+      }
+
+      .footer-contact-list li {
+         padding-bottom: 12px;
+         border-bottom: 1px solid rgba(255, 255, 255, .09)
+      }
+
+      .footer-contact-list li + li {
+         padding-top: 2px
+      }
+
+      .footer-contact-list strong {
+         display: block;
+         color: #eee5d6;
+         font-size: 10px;
+         letter-spacing: .8px;
+         margin-bottom: 3px
       }
 
       .footer-bottom {
          display: flex;
          justify-content: space-between;
-         padding-top: 20px;
-         color: #827b6f;
-         font-size: 8px
+         align-items: center;
+         gap: 18px;
+         padding: 22px 0;
+         border-top: 1px solid rgba(255, 255, 255, .13);
+         color: #827b70;
+         font-size: 8px;
+         letter-spacing: 1px;
+         text-transform: uppercase
       }
 
       /* floating */
@@ -1564,6 +1933,16 @@
             gap: 45px
          }
 
+         .rera-card {
+            grid-template-columns: auto 1fr;
+            gap: 24px
+         }
+
+         .rera-number {
+            grid-column: span 2;
+            text-align: left
+         }
+
          .intro-image {
             width: min(100%, 620px);
             height: clamp(380px, 62vw, 540px)
@@ -1587,6 +1966,15 @@
 
          .stat {
             border-bottom: 1px solid #ffffff1c
+         }
+
+         .footer-main {
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 42px
+         }
+
+         .footer-column:last-child {
+            grid-column: span 2
          }
       }
 
@@ -1632,6 +2020,56 @@
             grid-template-columns: 1fr
          }
 
+         .space {
+            min-height: 290px;
+            text-align: center
+         }
+
+         .space h3 {
+            margin-top: 20px
+         }
+
+         .space-link {
+            left: 0;
+            width: 100%;
+            text-align: center
+         }
+
+         .rera {
+            padding: 62px 0
+         }
+
+         .rera-card {
+            grid-template-columns: 1fr;
+            text-align: center
+         }
+
+         .rera-mark {
+            margin: auto
+         }
+
+         .rera-number {
+            grid-column: auto;
+            text-align: center
+         }
+
+         .space:after,
+         .space:nth-child(2):after,
+         .space:nth-child(3):after,
+         .space:nth-child(4):after {
+            left: 50%;
+            top: 50%
+         }
+
+         .space-grid:has(.space:hover) .space:after {
+            opacity: 0
+         }
+
+         .space:hover:after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1)
+         }
+
          .gallery-top {
             display: block
          }
@@ -1665,15 +2103,43 @@
             padding: 25px
          }
 
-         .footer-top,
          .footer-bottom {
             flex-direction: column;
             align-items: flex-start;
             gap: 18px
          }
 
-         .footer-links {
-            flex-wrap: wrap
+         .footer-cta {
+            padding: 22px 0
+         }
+
+         .footer-cta-inner,
+         .footer-cta-copy {
+            align-items: flex-start;
+            flex-direction: column
+         }
+
+         .footer-cta-copy {
+            gap: 11px
+         }
+
+         .footer-cta-copy i {
+            width: 34px
+         }
+
+         .footer-main {
+            grid-template-columns: 1fr 1fr;
+            gap: 38px 26px;
+            padding: 56px 0 45px
+         }
+
+         .footer-brand,
+         .footer-column:last-child {
+            grid-column: span 2
+         }
+
+         .footer-brand p {
+            margin-top: 18px
          }
       }
 
@@ -1848,7 +2314,7 @@
       </div>
    </header>
 
-   <section class="hero" id="home">
+    <section class="hero" id="home" tabindex="0" aria-label="MEK Prime Central highlights">
       <div class="hero-slider" aria-label="MEK project highlights">
          <div class="hero-slide active"
             style="background-image:url('https://images.unsplash.com/photo-1524230572899-a752b3835840?auto=format&fit=crop&w=2400&q=90');"
@@ -1979,6 +2445,12 @@
                   activity.</p>
                <div class="space-link">Explore opportunities →</div>
             </article>
+            <article class="space reveal delay3">
+               <div class="space-no">04</div>
+               <h3>Flexible</h3>
+               <p>Adaptable commercial formats for businesses that need a space ready to evolve with their next move.</p>
+               <div class="space-link">Explore flexible spaces →</div>
+            </article>
          </div>
       </div>
    </section>
@@ -2065,7 +2537,67 @@
       </div>
    </section>
 
-   <section class="gallery" id="gallery">
+    <section class="snapshot" id="snapshot">
+       <div class="container snapshot-grid">
+          <div class="snapshot-intro reveal">
+             <div class="eyebrow">Project Snapshot</div>
+             <h2 class="snapshot-title">Grand Meridian City essentials, <em>easy to scan.</em></h2>
+          </div>
+
+          <div class="snapshot-cards">
+             <div class="snapshot-card reveal delay1">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21h14M7 21V4h10v17M10 8h4M10 12h4M10 16h4"/></svg></div>
+                <div class="snapshot-copy"><span>Project</span><strong>MEK PRIME CENTRAL</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay2">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21h14M7 21V4h10v17M10 8h4M10 12h4M10 16h4"/></svg></div>
+                <div class="snapshot-copy"><span>Developer</span><strong>MEK</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay3">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+                <div class="snapshot-copy"><span>Location</span><strong>Mumbra</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay1">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v5c0 5 3.4 8.1 8 10 4.6-1.9 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+                <div class="snapshot-copy"><span>RERA</span><strong>PC1330002600951</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay2">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></div>
+                <div class="snapshot-copy"><span>Launch Date</span><strong>June 2026</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay3">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16v10H4zM3 10l2-5h14l2 5M8 14h8M8 20v-4h8v4"/></svg></div>
+                <div class="snapshot-copy"><span>Current Status</span><strong>Under Construction</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay1">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></div>
+                <div class="snapshot-copy"><span>Possession</span><strong>December 2031</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay2">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 11 8-7 8 7v9H4zM9 20v-5h6v5M3 11h18"/></svg></div>
+                <div class="snapshot-copy"><span>Typology</span><strong>2 &amp; 3 BHK</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay3">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21h14M7 21V4h10v17M10 8h4M10 12h4M10 16h4"/></svg></div>
+                <div class="snapshot-copy"><span>Towers</span><strong>2</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay1">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v15h14V6l-7-3Z"/><path d="M9 10h6M9 14h6M9 18h6"/></svg></div>
+                <div class="snapshot-copy"><span>Floors</span><strong>30</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay2">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 11 8-7 8 7v9H4zM9 20v-5h6v5M3 11h18"/></svg></div>
+                <div class="snapshot-copy"><span>Total Units</span><strong>347</strong></div>
+             </div>
+             <div class="snapshot-card reveal delay3">
+                <div class="snapshot-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+                <div class="snapshot-copy"><span>Land Parcel</span><strong>8.74 Acres</strong></div>
+             </div>
+          </div>
+       </div>
+    </section>
+
+    <section class="gallery" id="gallery">
       <div class="container">
          <div class="gallery-top">
             <div>
@@ -2113,6 +2645,23 @@
             <div class="journey-step reveal delay3"><b>04</b>
                <h3>Choose</h3>
                <p>Move forward with the space that fits your vision.</p>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <section class="rera" id="rera">
+      <div class="container">
+         <div class="rera-card reveal">
+            <div class="rera-mark" aria-hidden="true">R</div>
+            <div class="rera-copy">
+               <div class="eyebrow">Regulatory information</div>
+               <h2>MahaRERA <em>Registered.</em></h2>
+               <p>MEK Prime Central is registered under MahaRERA. Please refer to the official MahaRERA website and authorised project documents for the latest regulatory information.</p>
+            </div>
+            <div class="rera-number">
+               <span>Commercial MahaRERA No.</span>
+               <strong>PC1330002600951</strong>
             </div>
          </div>
       </div>
@@ -2205,22 +2754,56 @@
    </section>
 
    <footer>
+      <div class="footer-cta">
+         <div class="container footer-cta-inner">
+            <div class="footer-cta-copy"><i></i><p>Find the right address for your ambition.</p></div>
+            <a class="btn" href="#enquiry">Make an Enquiry <span style="margin-left:10px">→</span></a>
+         </div>
+      </div>
       <div class="container">
-         <div class="footer-top">
-            <div class="footer-logo">MEK PRIME CENTRAL</div>
-            <div class="footer-links">
-               <a href="#vision">Vision</a>
-               <a href="#spaces">Spaces</a>
-               <a href="#location">Location</a>
-               <a href="#gallery">Gallery</a>
-               <a href="#enquiry">Enquire</a>
-               <a href="#" data-legal="privacy">Privacy Policy</a>
-               <a href="#" data-legal="terms">Terms &amp; Conditions</a>
-               <a href="#" data-legal="disclaimer">Disclaimer</a>
+         <div class="footer-main">
+            <div class="footer-brand">
+               <a href="#top" aria-label="MEK Prime Central home">
+                  <img class="footer-logo-image" src="./fav.png" alt="MEK Prime Central logo">
+               </a>
+               <p>Premium retail, office and commercial spaces at Grand Meridian City—made for businesses ready to be seen.</p>
+               <div class="footer-social" aria-label="Contact links">
+                  <a href="https://wa.me/918108461027" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+                     <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.23c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.58-1.5-1.85-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.52-.45-.45-.61-.46h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27s.98 2.64 1.11 2.82c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.57.66.21 1.26.18 1.73.11.53-.08 1.6-.66 1.82-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32zM16.01 3.2A12.78 12.78 0 0 0 5.08 22.65L3.2 28.8l6.32-1.81A12.8 12.8 0 1 0 16.01 3.2zm0 23.35c-2.06 0-4.08-.55-5.84-1.59l-.42-.25-3.75 1.07 1.1-3.65-.27-.44A10.61 10.61 0 1 1 16.01 26.55z"/></svg>
+                  </a>
+                  <a href="tel:+918108461027" aria-label="Call MEK Prime Central">
+                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8.01 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z"/></svg>
+                  </a>
+               </div>
+            </div>
+            <div class="footer-column">
+               <h3>Explore</h3>
+               <ul>
+                  <li><a href="#vision">Vision</a></li>
+                  <li><a href="#spaces">Spaces</a></li>
+                  <li><a href="#location">Location</a></li>
+                  <li><a href="#gallery">Gallery</a></li>
+                  <li><a href="#enquiry">Enquire</a></li>
+               </ul>
+            </div>
+            <div class="footer-column">
+               <h3>Information</h3>
+               <ul>
+                  <li><a href="#" data-legal="privacy">Privacy Policy</a></li>
+                  <li><a href="#" data-legal="terms">Terms &amp; Conditions</a></li>
+                  <li><a href="#" data-legal="disclaimer">Disclaimer</a></li>
+               </ul>
+            </div>
+            <div class="footer-column">
+               <h3>Contact</h3>
+               <ul class="footer-contact-list">
+                  <li><strong>Visit</strong><p>Grand Meridian City, Mumbra,<br>Thane, Maharashtra</p></li>
+                  <li><strong>Call</strong><a href="tel:+918108461027">+91 81084 61027</a></li>
+               </ul>
             </div>
          </div>
          <div class="footer-bottom">
-            <span>© 2026 MEK PRIME CENTRAL</span>
+            <span>© 2026 MEK Prime Central. All rights reserved.</span>
             <span>Commercial MahaRERA: PC1330002600951</span>
          </div>
       </div>
@@ -2440,29 +3023,75 @@
 
       /* HERO SLIDER */
       const hero = document.querySelector(".hero");
+      const heroSlider = document.querySelector(".hero-slider");
       const heroSlides = [...document.querySelectorAll(".hero-slide")];
       const heroDots = [...document.querySelectorAll(".hero-slider-dot")];
       const heroPrev = document.getElementById("heroPrev");
       const heroNext = document.getElementById("heroNext");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const HERO_INTERVAL = 7000;
+      const FADE_DURATION = 1350;
       let heroIndex = 0;
       let heroTimer;
+      let heroPaused = false;
+
+      // Preload each background so the first crossfade never reveals a blank frame.
+      heroSlides.forEach(slide => {
+         const source = slide.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1];
+         if (source) {
+            const image = new Image();
+            image.src = source;
+         }
+      });
 
       function showHeroSlide(index) {
-         heroIndex = (index + heroSlides.length) % heroSlides.length;
+         if (!heroSlides.length) return;
+
+         const nextIndex = (index + heroSlides.length) % heroSlides.length;
+         const previousIndex = heroIndex;
+         heroIndex = nextIndex;
 
          heroSlides.forEach((slide, i) => {
-            slide.classList.toggle("active", i === heroIndex);
+            const isActive = i === heroIndex;
+            slide.classList.toggle("active", isActive);
+            slide.classList.toggle("is-leaving", i === previousIndex && i !== heroIndex);
+            slide.setAttribute("aria-hidden", String(!isActive));
          });
 
          heroDots.forEach((dot, i) => {
-            dot.classList.toggle("active", i === heroIndex);
+            const isActive = i === heroIndex;
+            dot.classList.toggle("active", isActive);
+            dot.setAttribute("aria-current", isActive ? "true" : "false");
          });
 
+         // Remove the temporary leaving state after the fade completes.
+         window.setTimeout(() => {
+            heroSlides.forEach(slide => slide.classList.remove("is-leaving"));
+         }, FADE_DURATION);
+      }
+
+      function stopHeroTimer() {
+         window.clearTimeout(heroTimer);
+         heroTimer = undefined;
       }
 
       function restartHeroTimer() {
-         clearInterval(heroTimer);
-         heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 7000);
+         stopHeroTimer();
+         if (reduceMotion.matches || heroPaused || heroSlides.length < 2) return;
+         heroTimer = window.setTimeout(() => {
+            showHeroSlide(heroIndex + 1);
+            restartHeroTimer();
+         }, HERO_INTERVAL);
+      }
+
+      function pauseHero() {
+         heroPaused = true;
+         stopHeroTimer();
+      }
+
+      function resumeHero() {
+         heroPaused = false;
+         restartHeroTimer();
       }
 
       heroPrev.addEventListener("click", () => {
@@ -2482,6 +3111,30 @@
          });
       });
 
+      heroSlider.addEventListener("pointerenter", pauseHero);
+      heroSlider.addEventListener("pointerleave", resumeHero);
+      heroSlider.addEventListener("focusin", pauseHero);
+      heroSlider.addEventListener("focusout", event => {
+         if (!heroSlider.contains(event.relatedTarget)) resumeHero();
+      });
+
+      hero.addEventListener("keydown", event => {
+         if (event.key === "ArrowLeft") {
+            showHeroSlide(heroIndex - 1);
+            restartHeroTimer();
+         }
+         if (event.key === "ArrowRight") {
+            showHeroSlide(heroIndex + 1);
+            restartHeroTimer();
+         }
+      });
+
+      document.addEventListener("visibilitychange", () => {
+         if (document.hidden) stopHeroTimer();
+         else restartHeroTimer();
+      });
+
+      reduceMotion.addEventListener?.("change", restartHeroTimer);
       showHeroSlide(0);
       restartHeroTimer();
 
