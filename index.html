@@ -288,20 +288,22 @@
       }
       /* nav */
       header {
-         position: sticky;
+         background-color: #cfab70;
+         position:relative;
          top: 0;
          left: 0;
          width: 100%;
          z-index: 5000;
          padding: 25px 0;
-         color: white;
+         color: black;
          transition: .5s var(--ease)
       }
 
       header.scrolled {
+         position: sticky;
          padding: 12px 0;
-         background: #EFFFFC;
-         color: #063d35;
+         background: #cfab70;
+         color: #000000;
          backdrop-filter: blur(18px);
          box-shadow: 0 8px 30px #3e30150e
       }
@@ -2839,7 +2841,7 @@
          position: static !important;
          order: 2 !important
       }
-   </style>
+  </style>
 </head>
 
 <body class="lock">
@@ -2884,7 +2886,6 @@
          <div class="hero-slider-dots" aria-label="Hero slides">
             <button class="hero-slider-dot active" data-slide="0" aria-label="Go to slide 1"></button>
             <button class="hero-slider-dot" data-slide="1" aria-label="Go to slide 2"></button>
-            <button class="hero-slider-dot" data-slide="2" aria-label="Go to slide 3"></button>
          </div>
       </div>
 
@@ -2895,7 +2896,6 @@
          </div>
       </div>
       <div class="hero-side"><strong>G+4</strong><span>Premium Commercial Destination</span></div>
-      <div class="hero-scroll">Scroll to discover <i></i></div>
    </section>
 
    <section class="intro">
