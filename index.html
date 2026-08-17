@@ -2528,9 +2528,16 @@
          }
 
          .hero {
-            height: 72svh;
-            min-height: 500px;
-            max-height: 680px;
+            /* Match the banner's own ratio so there are no black bars
+               above/below the image on phones. */
+            height: auto;
+            min-height: 0;
+            max-height: none;
+            aspect-ratio: 1920 / 700;
+         }
+
+         .hero-slide {
+            background-size: cover;
          }
 
          .hero-content {
