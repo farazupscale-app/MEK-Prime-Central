@@ -2528,21 +2528,53 @@
          }
 
          .hero {
-            /* Match the banner's own ratio so there are no black bars
-               above/below the image on phones. */
-            height: auto;
+            /* Match the mobile banner ratio so no black space appears above or below. */
+            height: calc(100vw * 700 / 900);
             min-height: 0;
             max-height: none;
-            aspect-ratio: 1920 / 700;
+            aspect-ratio: auto;
+            display: flex;
+            overflow: hidden;
+            background: #171611;
+            padding-bottom: 0;
+         }
+
+         .hero-slider {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            aspect-ratio: auto;
          }
 
          .hero-slide {
             background-size: cover;
+            background-position: center center;
+         }
+
+         /* Mobile-only hero artwork (portrait-friendly crops) */
+         .hero-slide:nth-of-type(1),
+         .hero-slide:nth-of-type(2) {
+            background-size: contain;
+            background-position: center center;
+            background-color: #171611;
+         }
+
+         .hero-slide:nth-of-type(1) {
+            background-image: url('./images/mek-grand-central-broucher-banner-01-mobile.webp') !important;
+         }
+
+         .hero-slide:nth-of-type(2) {
+            background-image: url('./images/mek-grand-central-distance-banner-02-mobile.webp') !important;
          }
 
          .hero-content {
-            bottom: 82px;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 22px;
+            padding: 0 16px;
          }
+
 
          .hero h1 {
             font-size: 65px;
