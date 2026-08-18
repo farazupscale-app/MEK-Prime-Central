@@ -3940,9 +3940,6 @@
    </div>
 
    <script>
-      /* GOOGLE APPS SCRIPT WEB APP URL
-         Replace this with your deployed Apps Script URL. */
-      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlXX2csBrcpws_eeDkjlwsI2nu4dvqw3RuArSNMNHhdG-JYyw6mckdwlKtBmdez4AO/exec";
 
       /* loader */
       window.addEventListener("load", () => {
@@ -4303,166 +4300,294 @@
       });
 
       /* =========================================================
-         GOOGLE SHEETS LEAD SUBMISSION
-         ---------------------------------------------------------
-         Website → Google Apps Script Web App → Google Sheet
+   GOOGLE SHEETS LEAD SUBMISSION
+   Website → Google Apps Script → Google Sheet
+   ========================================================= */
 
-         IMPORTANT:
-         Paste your deployed Google Apps Script Web App URL into
-         GOOGLE_SCRIPT_URL below.
+const GOOGLE_SCRIPT_URL =
+   "https://script.google.com/macros/s/AKfycbxYTh6OAXXyoi3EB5Fon0usjeseJpTVNafs81ii32CrD-6P8ovN0TzbJ1VY6OqGN-KC/exec";
 
-         No Vercel /api/lead.js file is required.
-         ========================================================= */
 
-      async function submitLead(form) {
+/* =========================================================
+   COMMON SUBMISSION FUNCTION
+   ========================================================= */
 
-         const button = form.querySelector(".submit");
-         const oldText = button ? button.textContent : "Submit";
+async function submitLead(form) {
 
-         if (button) {
-            button.textContent = "Sending...";
-            button.disabled = true;
-         }
+   const button =
+      form.querySelector(
+         'button[type="submit"], .submit, #submitBtn'
+      );
 
-         try {
+   const oldText =
+      button ? button.textContent : "Submit";
 
-            /* Make sure the Google Apps Script URL was added */
-            if (
-               !GOOGLE_SCRIPT_URL ||
-               GOOGLE_SCRIPT_URL.includes("YOUR_APPS_SCRIPT_URL")
-            ) {
-               alert("Please add your Google Apps Script Web App URL first.");
-               return false;
-            }
 
-            /*
-               FormData automatically sends the fields whose HTML
-               inputs have name attributes.
+   if (button) {
 
-               Main/popup form:
-               fullName
-               phone
-               email
-               requirement
-               message
+      button.disabled = true;
+      button.textContent = "Submitting...";
 
-               Callback form:
-               fullName
-               phone
-               email
-            */
-            const formData = new FormData(form);
+   }
 
-            /*
-               Direct submission to Google Apps Script.
 
-               mode: "no-cors" is required for this simple
-               Google Apps Script Web App setup. The browser cannot
-               read Google's response, but a successful fetch means
-               the request was sent.
-            */
-            await fetch(GOOGLE_SCRIPT_URL, {
-               method: "POST",
-               mode: "no-cors",
-               body: formData
-            });
+   try {
 
-            return true;
+      const formData = new FormData(form);
 
-         } catch (error) {
 
-            console.error("Google Sheets submission error:", error);
+      /*
+         Send form directly to Google Apps Script.
 
-            alert("Submission failed. Please try again.");
+         no-cors is required for this Google Apps Script setup.
+      */
 
-            return false;
+      await fetch(GOOGLE_SCRIPT_URL, {
 
-         } finally {
+         method: "POST",
 
-            if (button) {
-               button.textContent = oldText;
-               button.disabled = false;
-            }
+         mode: "no-cors",
 
-         }
+         body: formData
+
+      });
+
+
+      console.log("Lead submitted successfully.");
+
+      return true;
+
+
+   } catch (error) {
+
+      console.error(
+         "Google Sheets submission error:",
+         error
+      );
+
+      return false;
+
+
+   } finally {
+
+      if (button) {
+
+         button.disabled = false;
+         button.textContent = oldText;
+
       }
 
+   }
 
-      /* =========================================================
-         MAIN ENQUIRY FORM
-         ========================================================= */
+}
 
-      document.getElementById("leadForm").onsubmit = async e => {
 
-         e.preventDefault();
+/* =========================================================
+   MAIN ENQUIRY FORM
+   ========================================================= */
 
-         if (await submitLead(e.target)) {
+const leadForm =
+   document.getElementById("leadForm");
 
-            e.target.reset();
 
-            document.getElementById("formWrap").style.display = "none";
+if (leadForm) {
 
-            document.getElementById("success").classList.add("show");
+   leadForm.addEventListener(
+      "submit",
+      async function (event) {
+
+         event.preventDefault();
+
+
+         const success =
+            await submitLead(this);
+
+
+         if (success) {
+
+            this.reset();
+
+
+            const formWrap =
+               document.getElementById("formWrap");
+
+            const successMessage =
+               document.getElementById("success");
+
+
+            if (formWrap) {
+
+               formWrap.style.display = "none";
+
+            }
+
+
+            if (successMessage) {
+
+               successMessage.classList.add("show");
+
+            }
+
+         } else {
+
+            alert(
+               "Something went wrong. Please try again."
+            );
 
          }
 
-      };
+      }
+   );
+
+}
 
 
-      /* =========================================================
-         CALLBACK FORM
-         ========================================================= */
+/* =========================================================
+   CALLBACK FORM
+   ========================================================= */
 
-      document.getElementById("callbackForm").onsubmit = async e => {
+const callbackForm =
+   document.getElementById("callbackForm");
 
-         e.preventDefault();
 
-         if (await submitLead(e.target)) {
+if (callbackForm) {
 
-            e.target.reset();
+   callbackForm.addEventListener(
+      "submit",
+      async function (event) {
 
-            modal.classList.remove("open");
+         event.preventDefault();
 
-            alert("Callback request submitted successfully.");
+
+         const success =
+            await submitLead(this);
+
+
+         if (success) {
+
+            this.reset();
+
+
+            if (typeof modal !== "undefined") {
+
+               modal.classList.remove("open");
+
+            }
+
+
+            alert(
+               "Callback request submitted successfully."
+            );
+
+         } else {
+
+            alert(
+               "Something went wrong. Please try again."
+            );
 
          }
 
-      };
+      }
+   );
+
+}
 
 
-      /* =========================================================
-         POPUP ENQUIRY FORM
-         ========================================================= */
+/* =========================================================
+   POPUP ENQUIRY FORM
+   ========================================================= */
 
-      document.getElementById("popupLeadForm").onsubmit = async e => {
+const popupLeadForm =
+   document.getElementById("popupLeadForm");
 
-         e.preventDefault();
 
-         if (await submitLead(e.target)) {
+if (popupLeadForm) {
 
-            e.target.reset();
+   popupLeadForm.addEventListener(
+      "submit",
+      async function (event) {
 
-            e.target.style.display = "none";
+         event.preventDefault();
 
-            document.querySelector(".enquiry-popup-content > p").style.display = "none";
 
-            document.getElementById("popupSuccess").classList.add("show");
+         const success =
+            await submitLead(this);
+
+
+         if (success) {
+
+            this.reset();
+
+
+            this.style.display = "none";
+
+
+            const popupText =
+               document.querySelector(
+                  ".enquiry-popup-content > p"
+               );
+
+
+            if (popupText) {
+
+               popupText.style.display = "none";
+
+            }
+
+
+            const popupSuccess =
+               document.getElementById("popupSuccess");
+
+
+            if (popupSuccess) {
+
+               popupSuccess.classList.add("show");
+
+            }
+
 
             setTimeout(() => {
 
-               closeEnquiryModal();
+               if (
+                  typeof closeEnquiryModal ===
+                  "function"
+               ) {
 
-               e.target.style.display = "";
+                  closeEnquiryModal();
 
-               document.querySelector(".enquiry-popup-content > p").style.display = "";
+               }
 
-               document.getElementById("popupSuccess").classList.remove("show");
+
+               this.style.display = "";
+
+
+               if (popupText) {
+
+                  popupText.style.display = "";
+
+               }
+
+
+               if (popupSuccess) {
+
+                  popupSuccess.classList.remove("show");
+
+               }
 
             }, 1800);
 
+         } else {
+
+            alert(
+               "Something went wrong. Please try again."
+            );
+
          }
 
-      };
+      }
+   );
+
+}
    </script>
    <script>
       /* SCROLL REVEALS — matched to the reference site (fade-up + image clip reveal + counters) */
