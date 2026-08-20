@@ -4860,27 +4860,7 @@ if (leadForm) {
          if (success) {
 
             this.reset();
-
-
-            const formWrap =
-               document.getElementById("formWrap");
-
-            const successMessage =
-               document.getElementById("success");
-
-
-            if (formWrap) {
-
-               formWrap.style.display = "none";
-
-            }
-
-
-            if (successMessage) {
-
-               successMessage.classList.add("show");
-
-            }
+            window.location.href = "./thank-you.html";
 
          } else {
 

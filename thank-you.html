@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You — MEK Prime Central</title>
+  <link rel="icon" href="./fav.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #f3ebdd; --paper: #fbf7ef; --ink: #211d17; --muted: #756d61; --line: #d8ccb9; --gold: #a77a3b; }
+    * { box-sizing: border-box; margin: 0; }
+    body { min-height: 100vh; display: grid; place-items: center; padding: 28px; background: var(--bg); color: var(--ink); font-family: "DM Sans", sans-serif; }
+    main { width: min(100%, 1120px); min-height: min(374px, calc(100vh - 56px)); display: grid; place-items: center; padding: 48px 24px; text-align: center; background: var(--paper); border: 1px solid var(--line); }
+    .icon { width: 64px; height: 64px; display: grid; place-items: center; margin: 0 auto 22px; border: 1px solid var(--gold); border-radius: 50%; color: var(--gold); font-size: 25px; font-weight: 300; }
+    h1 { font: 500 clamp(42px, 5vw, 62px)/1 "Playfair Display", serif; letter-spacing: -1.5px; }
+    p { margin-top: 24px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .home { display: inline-block; margin-top: 28px; padding: 14px 22px; background: var(--gold); color: #fff; font-size: 9px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; text-decoration: none; }
+    .home:hover { background: #8c6834; }
+  </style>
+</head>
+<body>
+  <main>
+    <div>
+      <div class="icon" aria-hidden="true">✓</div>
+      <h1>Thank You</h1>
+      <p>Your enquiry has been submitted. Our team will contact you.</p>
+      <a class="home" href="./index.html">Back to Home</a>
+    </div>
+  </main>
+  <script>
+    setTimeout(() => { window.location.href = "./index.html"; }, 5000);
+  </script>
+</body>
+</html>
